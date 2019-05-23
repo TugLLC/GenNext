@@ -1,0 +1,19 @@
+Where the Apache License conflicts with CC Attribution 3.0 Unported, the CC Licence has priority.
+
+GenNext was built on the study of and testing code from the following sources:
+All Below, Daz3D (Note, no detailed attribution/author information specified)
+  Progress http://docs.daz3d.com/doku.php/public/software/dazstudio/4/referenceguide/scripting/api_reference/samples/general_ui/progress/start
+  Display Document http://docs.daz3d.com/doku.php/public/software/dazstudio/4/referenceguide/scripting/api_reference/samples/general_ui/display_document_dynamic/start
+  Silent OBJ Import http://docs.daz3d.com/doku.php/public/software/dazstudio/4/referenceguide/scripting/api_reference/samples/file_io/import_obj_silent/start
+  Silent OBJ Morphloader Import http://docs.daz3d.com/doku.php/public/software/dazstudio/4/referenceguide/scripting/api_reference/samples/file_io/import_obj_morph_loader_silent/start
+  File Copying http://docs.daz3d.com/doku.php/public/software/dazstudio/4/referenceguide/scripting/api_reference/samples/file_io/file_copying/start
+  Generate Sphere http://docs.daz3d.com/doku.php/public/software/dazstudio/4/referenceguide/scripting/api_reference/samples/geometry/generate_sphere/start
+  Widget Test http://docs.daz3d.com/doku.php/public/software/dazstudio/4/referenceguide/scripting/api_reference/samples/general_ui/widget_test/start (note, as of this document date, this script is not publicly available)
+mork, Convert G3F-8F (https://www.daz3d.com/forums/discussion/comment/2668021/#Comment_2668021, https://www.daz3d.com/forums/uploads/FileUpload/c6/039b485fd11a30cdf11441fedac21e.zip)
+All Below, mCasual/Jacques
+  mcjApplique https://sites.google.com/site/mcasualsdazscripts7/mcjapplique
+  mcjMirrorMorph https://sites.google.com/site/mcasualsdazscripts5/mcjmirrormorph
+  mcjPackager https://sites.google.com/site/mcasualsdazscripts2/mcjpackager
+  mcjStareAtTheCam https://sites.google.com/site/mcasualsdazscripts4/mcjstareatthecam
+  
+  GenNext is not a derivative of any of the above.
