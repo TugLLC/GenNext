@@ -1,0 +1,340 @@
+pelvis	center_point	45	3006	3154	3503
+pelvis	end_point	23	34
+lThigh	center_point	3066	3308	3337	3340
+lThigh	end_point	154	1387	1484	1488
+lThighTwist	center_point	154	1387	1484	1488
+lThighTwist	end_point	1776	3138	3284	4447
+lShin	center_point	1776	3138	3284	4447
+lShin	end_point	3774	4413	4437	4470
+lFoot	center_point	1330	3771	3853	3944
+lFoot	end_point	1382	3793	3858	4374
+lMetatarsals	center_point	4375	4376	4430	4452
+lMetatarsals	end_point	2039	4175	6261	6274
+lToe	center_point	2059	3744	6261	6269
+lToe	end_point	4654	4655	4681	4683
+lSmallToe4	center_point	363	1369	1405	1526
+lSmallToe4	end_point	364	4568	4588
+lSmallToe4_2	center_point	364	4568	4588
+lSmallToe4_2	end_point	4595	4596	4686	4687
+lSmallToe3	center_point	351	3743	3745
+lSmallToe3	end_point	347	4582
+lSmallToe3_2	center_point	347	4582
+lSmallToe3_2	end_point	4564	4618	4665	4667
+lSmallToe2	center_point	346	2053	3738
+lSmallToe2	end_point	343	344	5332	5333
+lSmallToe2_2	center_point	343	344	5332	5333
+lSmallToe2_2	end_point	4565	4566	4617	4646
+lSmallToe1	center_point	1710	2054	3740	4464
+lSmallToe1	end_point	287	340	341	1505
+lSmallToe1_2	center_point	287	340	341	1505
+lSmallToe1_2	end_point	4562	4615	4658	4659
+lBigToe	center_point	2062	2064	3737	3826
+lBigToe	end_point	4850	4851	4855	4856
+lBigToe2	center_point	4850	4851	4855	4856
+lBigToe2	end_point	6025	6026	6029	6030
+rThigh	center_point	9244	9479	9506	9509
+rThigh	end_point	6340	7573	7670	7674
+rThighTwist	center_point	6340	7573	7670	7674
+rThighTwist	end_point	7962	9311	9455	10595
+rShin	center_point	7962	9311	9455	10595
+rShin	end_point	9934	10561	10585	10618
+rMetatarsals	center_point	7516	9931	10013	10104
+rMetatarsals	end_point	7568	9953	10018	10523
+rFoot	center_point	10524	10525	10578	10600
+rFoot	end_point	8225	10334	12319	12332
+rToe	center_point	8245	9904	12319	12327
+rToe	end_point	10801	10802	10828	10830
+rSmallToe4	center_point	6549	7555	7591	7712
+rSmallToe4	end_point	6550	10715	10735
+rSmallToe4_2	center_point	6550	10715	10735
+rSmallToe4_2	end_point	10742	10743	10833	10834
+rSmallToe3	center_point	6537	9903	9905
+rSmallToe3	end_point	6533	10729
+rSmallToe3_2	center_point	6533	10729
+rSmallToe3_2	end_point	10711	10765	10812	10814
+rSmallToe2	center_point	6532	8239	9898
+rSmallToe2	end_point	6529	6530	11458	11459
+rSmallToe2_2	center_point	6529	6530	11458	11459
+rSmallToe2_2	end_point	10712	10713	10764	10793
+rSmallToe1	center_point	7896	8240	9900	10612
+rSmallToe1	end_point	6473	6526	6527	7691
+rSmallToe1_2	center_point	6473	6526	6527	7691
+rSmallToe1_2	end_point	10709	10762	10805	10806
+rBigToe	center_point	8248	8250	9897	9986
+rBigToe	end_point	10997	10998	11002	11003
+rBigToe_2	center_point	10997	10998	11002	11003
+rBigToe_2	end_point	12091	12092	12095	12096
+abdomenLower	center_point	45	3006	3154	3503
+abdomenLower	end_point	32	4345
+abdomen2	center_point	32	4345
+abdomen2	end_point	82	91
+chest	center_point	82	91
+chest	end_point	13604	3478
+chest_2	center_point	13604	3478
+chest_2	end_point	50	4247
+lCollar	center_point	2552	13690	3116	4309
+lCollar	end_point	4234	4235
+lShldr	center_point	4234	4235
+lShldr	end_point	3552	3554	3560	3568
+lShldrTwist	center_point	3552	3554	3560	3568
+lShldrTwist	end_point	2753	2754	2826	2868
+lForeArm	center_point	2753	2754	2826	2868
+lForeArm	end_point	2662	2868	3560	3568
+lWrist	center_point	2662	2868	3560	3568
+lWrist	end_point	816	818	1931	1938
+lHand	center_point	816	818	1931	1938
+lHand	end_point	530	531
+lThumb1	center_point	1888	1889	1936	4054
+lThumb1	end_point	4056	4086	5994
+lThumb2	center_point	4056	4086	5994
+lThumb2	end_point	5983	5985	6003	6005
+lThumb3	center_point	5983	5985	6003	6005
+lThumb3	end_point	4769	4773	14392	14393
+lCarpal1	center_point	509	816	1865	1888	1900	1936
+lCarpal1	end_point	520	5902
+lIndex1	center_point	520	5902
+lIndex1	end_point	988	995	1025	1032
+lIndex2	center_point	988	995	1025	1032
+lIndex2	end_point	992	1029	4707	4710
+lIndex3	center_point	992	1029	4707	4710
+lIndex3	end_point	4769	4773	14392	14393
+lCarpal2	center_point	503	816	1938	4107
+lCarpal2	end_point	538	539	1263	1264	5907	5908	5937	5938
+lCarpal2-1	center_point	503	816	1938	4107
+lCarpal2-1	end_point	538	539	1263	1264	5907	5908	5937	5938
+lMid1	center_point	538	539	1263	1264	5907	5908	5937	5938
+lMid1	end_point	1062	1069	1099	1106
+lMid2	center_point	1062	1069	1099	1106
+lMid2	end_point	1051	1088	4714	4718
+lMid3	center_point	1051	1088	4714	4718
+lMid3	end_point	4762	4765	4766	4810
+lCarpal3	center_point	502	551	4120	4124	4129
+lCarpal3	end_point	425	532	5939	5940
+lRing1	center_point	425	532	5939	5940
+lRing1	end_point	1133	1136	1143	1170	1173	1180
+lRing2	center_point	1133	1136	1143	1170	1173	1180
+lRing2	end_point	1140	1177	4722	4726
+lRing3	center_point	1140	1177	4722	4726
+lRing3	end_point	4762	4765	4766	4810
+lCarpal4	center_point	1287	4123
+lCarpal4	end_point	1276	5928
+lPinky1	center_point	1276	5928
+lPinky1	end_point	1210	1869
+lPinky2	center_point	1210	1869
+lPinky2	end_point	1214	1871	4730	4734
+lPinky3	center_point	1214	1871	4730	4734
+lPinky3	end_point	4746	4748	4835	4836
+rCollar	center_point	8738	13822	9290	10460
+rCollar	end_point	10391	10392
+rShldr	center_point	10391	10392
+rShldr	end_point	9715	9717	9723	9731
+rShldrTwist	center_point	9715	9717	9723	9731
+rShldrTwist	end_point	8939	8940	9012	9054
+rForeArm	center_point	8939	8940	9012	9054
+rForeArm	end_point	8848	9054	9723	9731
+rWrist	center_point	8848	9054	9723	9731
+rWrist	end_point	7002	7004	8117	8124
+rHand	center_point	7002	7004	8117	8124
+rHand	end_point	6716	6717
+rThumb1	center_point	8074	8075	8122	10213
+rThumb1	end_point	10215	10245	12060
+rThumb2	center_point	10215	10245	12060
+rThumb2	end_point	12049	12051	12069	12071
+rThumb3	center_point	12049	12051	12069	12071
+rThumb3	end_point	10916	10920	15196	15197
+rCarpal1	center_point	6695	7002	8051	8074	8086	8122
+rCarpal1	end_point	6706	11968
+rIndex1	center_point	6706	11968
+rIndex1	end_point	7174	7181	7211	7218
+rIndex2	center_point	7174	7181	7211	7218
+rIndex2	end_point	7178	7215	10854	10857
+rIndex3	center_point	7178	7215	10854	10857
+rIndex3	end_point	10916	10920	15196	15197
+rCarpal2	center_point	6689	7002	8124	10266
+rCarpal2	end_point	6724	6725	7449	7450	11973	11974	12003	12004
+rMid1	center_point	6724	6725	7449	7450	11973	11974	12003	12004
+rMid1	end_point	7248	7255	7285	7292
+rMid2	center_point	7248	7255	7285	7292
+rMid2	end_point	7237	7274	10861	10865
+rMid3	center_point	7237	7274	10861	10865
+rMid3	end_point	10909	10912	10913	10957
+rCarpal3	center_point	6688	6737	10279	10283	10288
+rCarpal3	end_point	6611	6718	12005	12006
+rRing1	center_point	6611	6718	12005	12006
+rRing1	end_point	7319	7322	7329	7356	7359	7366
+rRing2	center_point	7319	7322	7329	7356	7359	7366
+rRing2	end_point	7326	7363	10869	10873
+rRing3	center_point	7326	7363	10869	10873
+rRing3	end_point	10909	10912	10913	10957
+rCarpal4	center_point	7473	10282
+rCarpal4	end_point	7462	11994
+rPinky1	center_point	7462	11994
+rPinky1	end_point	7396	8055
+rPinky2	center_point	7396	8055
+rPinky2	end_point	7400	8057	10877	10881
+rPinky3	center_point	7400	8057	10877	10881
+rPinky3	end_point	10893	10895	10982	10983
+neck	center_point	26	56
+neck	end_point	2158	8344
+neck_2	center_point	2158	8344
+neck_2	end_point	6546	12926
+head	center_point	6546	12926
+head	end_point	6546	12926
+upperJaw	center_point	4515	4516	10663	10664
+upperJaw	end_point	21
+lowerJaw	center_point	5343	6115	11469	12177
+lowerJaw	end_point	5414
+lowerTeeth	center_point	4516	4521	10664	10669
+lowerTeeth	end_point	61
+tongueBase	center_point	6096	12161
+tongueBase	end_point	5420	11544
+tongue01	center_point	5420	11544
+tongue01	end_point	5854	11925
+tongue02	center_point	5854	11925
+tongue02	end_point	5849	11921
+tongue03	center_point	5849	11921
+tongue03	end_point	5429
+lowerFaceRig	center_point	5343	6115	11469	12177
+lowerFaceRig	end_point	5414
+lNasolabialLower	center_point	1581
+lNasolabialLower	end_point	1581
+rNasolabialLower	center_point	7767
+rNasolabialLower	end_point	7767
+lNasolabialMouthCorner	center_point	5104
+lNasolabialMouthCorner	end_point	5104
+rNasolabialMouthCorner	center_point	11241
+rNasolabialMouthCorner	end_point	11241
+lLipCorver	center_point	2181
+lLipCorver	end_point	2181
+lLipLowerOuter	center_point	615
+lLipLowerOuter	end_point	615
+lLipLowerInner	center_point	2286
+lLipLowerInner	end_point	2286
+LipLowerMiddle	center_point	14
+LipLowerMiddle	end_point	14
+rLipLowerInner	center_point	8472
+rLipLowerInner	end_point	8472
+rLipLowerOuter	center_point	6801
+rLipLowerOuter	end_point	6801
+rLipCorner	center_point	8367
+rLipCorner	end_point	8367
+LipBelow	center_point	5110
+LipBelow	end_point	5110
+Chin	center_point	36
+Chin	end_point	36
+lCheekLowerInner	center_point	4516
+lCheekLowerInner	end_point	4516
+rCheekLowerInner	center_point	10664
+rCheekLowerInner	end_point	10664
+BelowJaw	center_point	39
+BelowJaw	end_point	39
+lJawClench	center_point	2339
+lJawClench	end_point	2339
+rJawClench	center_point	8525
+rJawClench	end_point	8525
+upperFaceRig	center_point	6546	12926
+upperFaceRig	end_point	6546	12926
+rBrowInner	center_point	8411
+rBrowInner	end_point	8411
+rBrowMid	center_point	8540
+rBrowMid	end_point	8540
+rBrowOuter	center_point	8604
+rBrowOuter	end_point	8604
+lBrowInner	center_point	2225
+lBrowInner	end_point	2225
+lBrowMid	center_point	2354
+lBrowMid	end_point	2354
+lBrowOuter	center_point	2418
+lBrowOuter	end_point	2418
+MidBrowUpper	center_point	59
+MidBrowUpper	end_point	59
+MidNoseBridge	center_point	5008
+MidNoseBridge	end_point	5008
+lEyelidInner	center_point	1540
+lEyelidInner	end_point	1540
+lEyelidUpperInner	center_point	15816
+lEyelidUpperInner	end_point	15816
+lEyelidTop	center_point	15816
+lEyelidTop	end_point	15816
+lEyelidUpperOuter	center_point	2193
+lEyelidUpperOuter	end_point	2193
+lEyelidOuter	center_point	2214
+lEyelidOuter	end_point	2214
+lEyelidLowerOuter	center_point	2210
+lEyelidLowerOuter	end_point	2210
+lEyelidLower	center_point	16019
+lEyelidLower	end_point	16019
+lEyelidLower_2	center_point	2208
+lEyelidLower_2	end_point	2208
+rEyelidInner	center_point	7726
+rEyelidInner	end_point	7726
+rEyelidUpperInner	center_point	15946
+rEyelidUpperInner	end_point	15946
+rEyelidUpper	center_point	15946
+rEyelidUpper	end_point	15946
+rEyelidUpperOuter	center_point	8379
+rEyelidUpperOuter	end_point	8379
+rEyelidOuter	center_point	8400
+rEyelidOuter	end_point	8400
+rEyelidLowerOuter	center_point	8396
+rEyelidLowerOuter	end_point	8396
+rEyelidLower	center_point	16025
+rEyelidLower	end_point	16025
+rEyelidLowerInner	center_point	8394
+rEyelidLowerInner	end_point	8394
+lSquintInner	center_point	6066
+lSquintInner	end_point	6066
+lSquintOuter	center_point	1571
+lSquintOuter	end_point	1571
+rSquintInner	center_point	12132
+rSquintInner	end_point	12132
+rSquintOuter	center_point	7757
+rSquintOuter	end_point	7757
+lCheekUpperInner	center_point	5000
+lCheekUpperInner	end_point	5000
+rCheekUpperInner	center_point	11143
+rCheekUpperInner	end_point	11143
+Nose	center_point	60
+Nose	end_point	60
+lNostril	center_point	2179
+lNostril	end_point	2179
+rNostril	center_point	8365
+rNostril	end_point	8365
+lLipBelowNose	center_point	5122
+lLipBelowNose	end_point	5122
+rLipBelowNose	center_point	11258
+rLipBelowNose	end_point	11258
+lLipUpperOuter	center_point	704
+lLipUpperOuter	end_point	704
+lLipUpperInner	center_point	5118
+lLipUpperInner	end_point	5118
+lLipUpperMiddle	center_point	20
+lLipUpperMiddle	end_point	20
+rLipUpperInner	center_point	11254
+rLipUpperInner	end_point	11254
+rLipUpperOuter	center_point	6890
+rLipUpperOuter	end_point	6890
+lLipNasolabialCrease	center_point	2299
+lLipNasolabialCrease	end_point	2299
+rLipNasolabialCrease	center_point	8485
+rLipNasolabialCrease	end_point	8485
+lNoseBirdge	center_point	1549
+lNoseBirdge	end_point	1549
+lNasolabialMiddle	center_point	1545
+lNasolabialMiddle	end_point	1545
+rNasolabialUpper	center_point	7735
+rNasolabialUpper	end_point	7735
+rNasolabialMiddle	center_point	7731
+rNasolabialMiddle	end_point	7731
+lEye	center_point	16047	16050	16067	16070	16085	16092	16105	16111
+lEye	end_point	15692
+rEye	center_point	16127	16130	16147	16150	16165	16172	16185	16191
+rEye	end_point	15822
+lEar	center_point	6257
+lEar	end_point	5296	5301
+rEar	center_point	12970
+rEar	end_point	11424	11429
+lPectoral	center_point	4272	4197	10354
+lPectoral	end_point	13617	13658	13660	13905	13934	14031	14050
+rPectoral	center_point	10426	4197	10354
+rPectoral	end_point	13749	13790	13792	13906	13933	14030	14064

@@ -1,0 +1,116 @@
+{
+	"file_version" : "0.6.0.0",
+	"asset_info" : {
+		"id" : "/data/DAZ%203D/Genesis%202/Female/Morphs/Architect/GenNext/8GNXPose.dsf",
+		"type" : "modifier",
+		"contributor" : {
+			"author" : "Architect",
+			"email" : "",
+			"website" : "http://www.singularblues.com"
+		},
+		"revision" : "1.0",
+		"modified" : "2019-04-04T20:02:44Z"
+	},
+	"modifier_library" : [
+		{
+			"id" : "8GNXPose",
+			"name" : "8GNXPose",
+			"parent" : "/data/DAZ%203D/Genesis%202/Female/Genesis2Female.dsf#GenesisFemale",
+			"presentation" : {
+				"type" : "",
+				"label" : "",
+				"description" : "",
+				"icon_large" : "",
+				"colors" : [ [ 0.07843137, 0, 0 ], [ 0.4196078, 0, 0.003921569 ] ]
+			},
+			"channel" : {
+				"id" : "value",
+				"type" : "float",
+				"name" : "8GNXPose",
+				"label" : "8GNXPose",
+				"visible" : false,
+				"value" : 0,
+				"min" : 0,
+				"max" : 1,
+				"clamped" : true,
+				"display_as_percent" : true,
+				"step_size" : 0.04
+			},
+			"group" : "/Hidden/Clones/Architect",
+			"formulas" : [
+				{
+					"output" : "lThigh:/data/DAZ%203D/Genesis%202/Female/Genesis2Female.dsf#lThigh?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "GenesisFemale:#8GNXPose?value" },
+						{ "op" : "push", "val" : 6 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rThigh:/data/DAZ%203D/Genesis%202/Female/Genesis2Female.dsf#rThigh?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "GenesisFemale:#8GNXPose?value" },
+						{ "op" : "push", "val" : -6 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rShldr:/data/DAZ%203D/Genesis%202/Female/Genesis2Female.dsf#rShldr?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "GenesisFemale:#8GNXPose?value" },
+						{ "op" : "push", "val" : 45 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rForeArm:/data/DAZ%203D/Genesis%202/Female/Genesis2Female.dsf#rForeArm?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "GenesisFemale:#8GNXPose?value" },
+						{ "op" : "push", "val" : -13 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rHand:/data/DAZ%203D/Genesis%202/Female/Genesis2Female.dsf#rHand?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "GenesisFemale:#8GNXPose?value" },
+						{ "op" : "push", "val" : -11 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lShldr:/data/DAZ%203D/Genesis%202/Female/Genesis2Female.dsf#lShldr?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "GenesisFemale:#8GNXPose?value" },
+						{ "op" : "push", "val" : -45 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lForeArm:/data/DAZ%203D/Genesis%202/Female/Genesis2Female.dsf#lForeArm?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "GenesisFemale:#8GNXPose?value" },
+						{ "op" : "push", "val" : 13 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lHand:/data/DAZ%203D/Genesis%202/Female/Genesis2Female.dsf#lHand?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "GenesisFemale:#8GNXPose?value" },
+						{ "op" : "push", "val" : 11 },
+						{ "op" : "mult" }
+					]
+				}
+			]
+		}
+	],
+	"scene" : {
+		"modifiers" : [
+			{
+				"id" : "8GNXPose-1",
+				"url" : "#8GNXPose"
+			}
+		]
+	}
+}

@@ -1,0 +1,2589 @@
+// DAZ Studio version 4.10.0.123 filetype DAZ Script
+(function(){
+/*****************************
+   Functions
+*****************************/
+function Checkboxfunc3()//Nothing passed. Used to check the CheckBox of the selected Item.
+{
+	if(wCBEnable.checked)
+	{
+		wMorphsLV.currentItem().on = true;
+	}
+	else
+	{
+		wMorphsLV.currentItem().on = false;
+	}
+}
+function Checkboxfunc4()//Nothing passed.
+{
+	if(wCBProd.checked)
+	{
+		wMorphsLV.currentItem().setText(6,"1");
+	}
+	else
+	{
+		wMorphsLV.currentItem().setText(6,"0");
+	}	
+}
+function ComboBox5func(nInt)//passed integer 0 or 1. Used to set the Local Bake Parameter
+{
+	if(nInt==0)
+	{
+		wMorphsLV.currentItem().setText(5,"Dft");
+	}
+	else if(nInt==1)
+	{
+		wMorphsLV.currentItem().setText(5,"Bake");
+	}
+	else if(nInt==2)
+	{
+		wMorphsLV.currentItem().setText(5,"FBM");
+	}	
+}
+function RadioButfunc0()//Nothing passed. Used to Set Type as Head
+{
+	if(wRdBnH.checked)
+	{
+		wMorphsLV.currentItem().setText(2,"Head");
+	}
+	else if(wRdBnB.checked)
+	{
+		wMorphsLV.currentItem().setText(2,"Body");
+	}
+	if(wRdBnO.checked)
+	{
+		wMorphsLV.currentItem().setText(2,"Other");
+	}
+}
+/*fillArray*/
+/*****A method to *****/
+function fillArray(value, len) //using this function allows you to avid the mess of getting the IDE to see an empty element and react to it
+{
+  var oArr = [];
+  for (var i = 0; i < len; i++) {
+    oArr.push(value);
+  }
+  return oArr;
+}
+/*getBaseDir*/
+/*****A method to *****/
+function getBaseDir(sDir)
+{
+	var oDir = new DzDir(oContentMgr.getAbsolutePath(sDir,true));
+	print(oDir.absolutePath()+(typeof oDir.absolutePath()));
+	print(oDir.absolutePath().match(escapeRegExp(sDir)));
+	if(!oDir.absolutePath().match(sDir))
+	{
+		return null;
+	}
+	else
+	{
+		return oDir;
+	}
+}
+function getBasePath(sDir)
+{
+	var oDir = oContentMgr.getAbsolutePath(sDir,true);
+	if(!oDir.match(escapeRegExp(sDir)))
+	{
+		return null;
+	}
+	else
+	{
+		return oDir;
+	}
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function clsUI()
+{
+	if(oSrcNode)
+	{
+		setNodeProperties(oSrcNode)
+	}
+	if(oTgtNode)
+	{
+		setNodeProperties(oTgtNode)
+	}
+	wDialog.close();
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function doHelp()
+{
+	App.showURL("file:///"+oContentMgr.getMappedPath( "/Documentation/Architect/GenNextHelp.pdf", true, true )+"/Documentation/Architect/GenNextHelp.pdf");
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function doWT()
+{
+	clsUI()//this needs to be fixed to launch What's This functions.
+}
+/*********************************************************************/
+/*startTimer*/
+/*****A method to begin tracking execution time*****/
+function startTimer() {
+  startTime = new Date();
+};
+/*********************************************************************/
+/*endTimer*/
+/*****A method to end tracking execution time*****/
+function endTimer() {
+  endTime = new Date();
+  var timeDiff = endTime - startTime; //in ms
+  var nSeconds = timeDiff / 1000;
+  var nMinutes = nSeconds / 60;
+  nMinutes = Math.floor(nMinutes);
+  nSeconds = nSeconds - (nMinutes * 60);
+  nSeconds = Math.floor(nSeconds);
+  var nMilSecs = timeDiff - ((nSeconds+(nMinutes * 60))*1000);
+}
+/*********************************************************************/
+/*fComboBox0*/
+/*****Controls the Source figure selection from the source ComboBox *****/
+function fComboBox0(sName)
+{
+	if(sName=="Source")
+	{
+		wMorphsList.clear();
+		imgOne = new Pixmap(getBasePath("/data/Architect/GenNext/data/DefaultIcon.png"));
+		wGBLab0.pixmap = imgOne;
+	}
+	else
+	{
+		oSrcNode = Scene.findNodeByLabel(sName); //Set Source node
+		aMorphsArray = getNodeProperties(oSrcNode);
+		startProgress("Collecting Properties",aMorphsArray.length,true,true);
+		nSrcImgIdx = aFigs.find(oSrcNode.assetId);
+		if(nSrcImgIdx<0)
+		{
+			imgOne = new Pixmap(getBasePath("/data/Architect/GenNext/data/DefaultIcon.png"));
+			wGBLab0.pixmap = imgOne;
+		}
+		else
+		{
+			if(getBasePath(aIcons[nSrcImgIdx])=="")
+			{
+				imgFour = new Pixmap(getBasePath(aCloudIcons[nSrcImgIdx]));
+			}
+			else
+			{
+				imgFour = new Pixmap(getBasePath(aIcons[nSrcImgIdx]));
+			}
+			wGBLab0.pixmap = imgFour;
+		}
+		wMorphsLV.clear();
+		for(var i=0;i<aMorphsArray.length;i++)
+		{
+			aMorphsArrayList[i] = new DzCheckListItem (wMorphsLV,DzCheckListItem.CheckBox,i);
+			aMorphsArrayList[i].setText(0,aMorphsArray[i].getLabel())
+			aMorphsArrayList[i].setText(1,aMorphsArray[i].name);
+			if(aMorphsArrayList[i].text(1)=="Value")
+			{
+				aMorphsArrayList[i].setText(1,aMorphsArray[i].getOwner().name);
+			}
+			aMorphsArrayList[i].setText(2,"Basic");
+			aMorphsArrayList[i].setText(3,aMorphsArray[i].getGroup().getPath());
+			aMorphsArrayList[i].setText(4,i);
+			aMorphsArrayList[i].setText(5,"Dft");
+			aMorphsArrayList[i].setText(6,"0");
+			aMorphsArrayList[i].visible = true;
+			aMorphsArrayList[i].selectable = true;
+			if(aMorphsArrayList[i].text(3).match("Clones")&&!bShwClns)
+			{
+				aMorphsArrayList[i].visible = false;
+			}
+			stepProgress(1);
+		}
+		wMorphsLV.setSelected(wMorphsLV.firstChild(), true);
+		wMorphsLV.allColumnsShowFocus = true;
+		finishProgress();
+	}
+}
+/*********************************************************************/
+/*fComboBox2*/
+/*****Controls the Source figure selection from the source ComboBox *****/
+function fComboBox2(sName)
+{
+	if(sName=="Target")
+	{
+		imgThree = new Pixmap(getBasePath("/data/Architect/GenNext/data/DefaultIcon.png"));
+		wGBLab2.pixmap = imgThree;
+	}
+	else
+	{
+		oTgtNode = Scene.findNodeByLabel(sName); //Set Target node
+		nTgtImgIdx = aFigs.find(oTgtNode.assetId)
+		getNodeProperties(oTgtNode);
+		if(nTgtImgIdx<0)
+		{
+			imgThree = new Pixmap(getBasePath("/data/Architect/GenNext/data/DefaultIcon.png"));
+			wGBLab2.pixmap = imgThree;
+		}
+		else
+		{
+			if(getBasePath(aIcons[nTgtImgIdx])=="")
+			{
+				imgFive = new Pixmap(getBasePath(aCloudIcons[nTgtImgIdx]));
+			}
+			else
+			{
+				imgFive = new Pixmap(getBasePath(aIcons[nTgtImgIdx]));
+			}
+			wGBLab2.pixmap = imgFive;
+		}
+	}
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function LineEditfunc(sString)
+{
+	if(sString == "")
+	{
+		for(var i=0;i<aMorphsArray.length;i++)
+		{
+			aMorphsArrayList[i].visible = true;
+			if(aMorphsArrayList[i].text(3).match("Clones")&&!bShwClns)
+			{
+				aMorphsArrayList[i].visible = false;
+			}
+		}
+	}
+	else
+	{
+		var regxString = new RegExp(sString.toLowerCase(), "m");
+		for(var i=0;i<aMorphsArray.length;i++)
+		{
+			if(aMorphsArray[i].getLabel().toLowerCase().match(regxString))
+			{
+				aMorphsArrayList[i].visible = true;
+				if(aMorphsArrayList[i].text(3).match("Clones")&&!bShwClns)
+				{
+					aMorphsArrayList[i].visible = false;
+				}
+			}
+			else
+			{
+				aMorphsArrayList[i].visible = false;
+			}
+		}
+	}
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function LineEditfunc2(sString)
+{
+	if(sString == "")
+	{
+		nScaleVal = 1;
+	}
+	else
+	{
+		sString = sString.replace(new RegExp("%","gm"),"");
+		var nScl = parseFloat(sString);
+		nScaleVal = 100/nScl;
+	}
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function ComboBox4func(nTgr){
+	sLib = aLibs[nTgr-1];
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function Checkboxfunc2(){
+	if(wCBShwClns.checked)
+	{
+		bShwClns = true;
+	}
+	if(!wCBShwClns.checked)
+	{
+		bShwClns = false;
+	}
+	var regxString = new RegExp(wMorphFilter.text.toLowerCase(), "m");
+		for(var i=0;i<aMorphsArray.length;i++)
+		{
+			aMorphsArrayList[i].visible = false;
+			if(aMorphsArray[i].getLabel().toLowerCase().match(regxString))
+			{
+				aMorphsArrayList[i].visible = true;
+				if(aMorphsArrayList[i].text(3).match("Clones")&&!bShwClns)
+				{
+					aMorphsArrayList[i].visible = false;
+				}
+			}
+		}
+}
+
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function itemVis(oItem)
+{
+	var sType = oItem.name;
+	if(oItem.state==2&&sType!="On")
+	{
+		nFHMFBM++
+		nBod++
+		if(nBod>0)
+		{
+			wCBOnlyMorphsChecked.checked = true;
+		}
+		var aListObjects = wMorphsList.getItems(DzListView.All);
+		for(i=0;i<aListObjects.length;i++)
+		{
+			if(nFHMFBM>0&&aListObjects[i].name=="On")
+			{
+				aListObjects[i].on = false;
+				aListObjects[i].enabled = false;
+			}
+			if(!aListObjects[i].on&&aListObjects[i].name==sType)
+			{
+				aListObjects[i].on = false;
+				aListObjects[i].enabled = false;
+			}
+		}
+	}
+	if(oItem.state!=2&&sType!="On")
+	{
+		nBod--
+		nFHMFBM--
+		if(nBod==0)
+		{
+			wCBOnlyMorphsChecked.checked = false;
+		}
+		var aListObjects = wMorphsList.getItems(DzListView.All);
+		for(i=0;i<aListObjects.length;i++)
+		{
+			if(nFHMFBM==0&&aListObjects[i].name=="On")
+			{
+				aListObjects[i].enabled = true;
+			}
+			if(aListObjects[i].name==sType)
+			{
+				aListObjects[i].enabled = true;
+			}
+		}
+	}
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function MorphsListfunc(oItem)
+{
+	if(oItem.on)
+	{
+		wCBEnable.checked = true;
+		var sTypeText = oItem.text(2);
+		var sBakeText = oItem.text(5);
+		var sProdText = oItem.text(6);
+		if(sTypeText=="Head")
+		{
+			wRdBnH.checked = true;
+		}
+		else if(sTypeText=="Body")
+		{
+			wRdBnB.checked = true;
+		}
+		else if(sTypeText=="Basic")
+		{
+			wRdBnO.checked = true;
+		}
+		if(sBakeText=="Dft")
+		{
+			wComboMode.currentItem = 0;
+			wComboMode.currentText = wComboMode.itemText(0);
+		}
+		else if(sBakeText=="Bake")
+		{
+			wComboMode.currentItem = 1;
+			wComboMode.currentText = wComboMode.itemText(1);
+		}
+		else if(sBakeText=="FBM")
+		{
+			wComboMode.currentItem = 2;
+			wComboMode.currentText = wComboMode.itemText(2);
+		}
+		if(sProdText=="0")
+		{
+			wCBProd.checked = false;
+		}
+		else if(sProdText=="1")
+		{
+			wCBProd.checked = true;
+		}
+	}
+	else
+	{
+		wCBEnable.checked = false;
+		wRdBnO.checked = true;
+		wComboMode.currentItem = 0;
+		wComboMode.currentText = wComboMode.itemText(0);
+		wCBProd.checked = false;
+	}
+}
+function clearList()
+{
+	startProgress("Collecting Properties",aMorphsArray.length,true,true);
+	wMorphFilter.clear();
+	wCBEnable.checked = false;
+	wRdBnO.checked = true;
+	wComboMode.currentItem = 0;
+	wComboMode.currentText = wComboMode.itemText(0);
+	wCBProd.checked = false;
+	wMorphsLV.clear();
+	for(var i=0;i<aMorphsArray.length;i++)
+	{
+		aMorphsArrayList[i] = new DzCheckListItem (wMorphsLV,DzCheckListItem.CheckBox,i);
+		aMorphsArrayList[i].setText(0,aMorphsArray[i].getLabel())
+		aMorphsArrayList[i].setText(1,aMorphsArray[i].name);
+		if(aMorphsArrayList[i].text(1)=="Value")
+		{
+			aMorphsArrayList[i].setText(1,aMorphsArray[i].getOwner().name);
+		}
+		aMorphsArrayList[i].setText(2,"Basic");
+		aMorphsArrayList[i].setText(3,aMorphsArray[i].getGroup().getPath());
+		aMorphsArrayList[i].setText(4,i);
+		aMorphsArrayList[i].setText(5,"Dft");
+		aMorphsArrayList[i].setText(6,"0");
+		aMorphsArrayList[i].visible = true;
+		aMorphsArrayList[i].selectable = true;
+		if(aMorphsArrayList[i].text(3).match("Clones")&&!bShwClns)
+		{
+			aMorphsArrayList[i].visible = false;
+		}
+		stepProgress(1);
+	}
+	wMorphsLV.setSelected(wMorphsLV.firstChild(), true);
+	wMorphsLV.allColumnsShowFocus = true;
+	finishProgress();
+}
+/*********************************************************************/
+/*escapeRegExp*/
+function escapeRegExp(string)
+{
+	return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+/*********************************************************************/
+/*snipLabel*/
+//snipLabel is an attempt at extracting the label from a dsf
+function snipLabel(sData)  
+{
+	sLabel = sData.match(/modifier_library[\s\S]*?name.\s:\s.([^"]+).,/);
+	if(sLabel == null||sLabel[1] == null)
+	{
+		sLabel = sData.match(/channel[\s\S]*?label.\s:\s.([^"]+).,/);
+	}
+	if(sLabel == null||sLabel[1] == null)
+	{
+		sLabel = sData.match(/modifier_library[\s\S]*?id.\s:\s.([^"]+).,/);
+	}
+	return sLabel[1];
+}
+/*********************************************************************/
+/*dirPath*/
+/*****A method to return a directory path from a file path *****/
+function dirPath(sFileName)  {
+	var a = sFileName.split("/");
+	a.pop();
+	a = a.join("/");
+	return a;
+}
+/*********************************************************************/
+/*createPath*/
+/*****A method to handle file paths until  you can figue out how do it correctly*****/
+function createPath(sPath)  
+{
+	var parts = sPath.split(/\//);
+	if (parts.length < 2) return false;
+	var tmp = parts[0];
+	for (var i=1; i<parts.length; ++i)  
+	{
+		tmp = tmp + '/' + parts[i];
+		var oDir = new DzDir(tmp);
+		if (!oDir.exists())  
+		{
+			oDir.mkdir();
+		}
+	}
+}
+/*********************************************************************/
+/*isCompressed*/
+/*****A method to test for file compression*****/
+function isCompressed(sFileName)  
+{
+	var bIsCompressed = false;
+	var oFile = new DzFile(sFileName);
+		if (oFile.isOpen() == false)  // if not yet open, which it should not, open it, readonly.
+		{
+			 var r = oFile.open(DzFile.ReadOnly);
+			 if (!r)  
+			 {
+				return false;
+			 }
+		}
+
+	var byte1 = oFile.readByte();
+	var byte2 = oFile.readByte();
+	if (byte1.toString(16) == '1f' && byte2.toString(16) == '-75')
+		bIsCompressed = true;
+
+	oFile.close();
+	return bIsCompressed;
+}
+/*********************************************************************/
+/*getExtension*/
+/*****A method to return a file extention from input filename*****/
+function getExtension(sFilename)  
+{
+	if (!sFilename) 
+	{
+		return false;
+	}
+	if (sFilename.length == 0) 
+	{
+		return false;
+	}
+	return sFilename.substr(sFilename.lastIndexOf('.')+1).toLowerCase();
+}
+/*********************************************************************/
+/*getFilename*/
+/*****A method to return a filename file path*****/
+function getFilename(sFilePath)  
+{
+	if (sFilePath.length == 0) 
+	{
+		return false;
+	}
+	return sFilePath.substr(sFilePath.search(/Morphs/i)+6);
+	//return sFilePath.replace(
+}
+/*********************************************************************/
+/*getFolderPath*/
+/*****A method to return a morphs folder path*****/
+function getFolderPath(sFilePath)  
+{
+	if (sFilePath == undefined || sFilePath.length == 0)
+	{		
+		print("***No Filepath***");
+		return false;
+	}
+return sFilePath.slice( 0, sFilePath.search(/\/[^.]+.dsf/i));
+}
+/*********************************************************************/
+/*getMorphsPath*/
+/*****A method to return a morphs folder path*****/
+function getMorphsPath(sFilePath)  
+{
+	if (sFilePath == undefined || sFilePath.length == 0)
+	{		
+		print("***No Filepath***");
+		return false;
+	}
+	return sFilePath.slice( 0, sFilePath.search(/Morphs/i)+7);
+	//return sFilePath.replace(
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function dsonErcParseVal(aVal)  
+{
+	if (aVal != null)  
+		{
+			return parseFloat(aVal[1]);
+		} 
+		else 
+		{
+			return false;
+		}
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function dsonErcGetVal(sRaw, sKey)  
+{
+		var sRegxKey = sKey+"[\\s\\S]*?\"val\"\\s:\\s([-\\d\\.]+)\\s";
+		var regxKey = new RegExp(sRegxKey, "m");
+		var aMatcher = sRaw.match(regxKey);
+			if(!aMatcher)
+			{
+				return sRaw;
+			}
+			if(aMatcher.length<2)
+			{
+				return sRaw;
+			}
+		var nMatch = dsonErcParseVal(aMatcher);
+		return nMatch;
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function dsonErcReplace(sRaw, nValue)  
+{
+		var sRegxKey = "[\\s\\S]*?\"val\"\\s:\\s([-\\d\\.]+)\\s";
+		var regxKey = new RegExp(sRegxKey, "m");
+		var aMatcher = sRaw.match(regxKey);
+			if(!aMatcher)
+			{
+				return sRaw;
+			}
+			if(aMatcher.length<2)
+			{
+				return sRaw;
+			}
+		sRaw = sRaw.replace(aMatcher[1], nValue);
+		return sRaw;
+	
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function dsonErcMul(sRaw, sKey, fMul)  
+	{
+			//prant(sKey);
+			var sRegxKey = sKey+"[\\s\\S]*?\"val\"\\s:\\s([-\\d\\.]+)\\s";
+			var regxKey = new RegExp(sRegxKey, "m");
+			var aMatcher = sRaw.match(regxKey);
+			if(!aMatcher)
+			{
+				return sRaw;
+			}
+			if(aMatcher.length<2)
+			{
+				return sRaw;
+			}
+			var nMatch = dsonErcParseVal(aMatcher);
+			if(aMatcher != null)
+			{
+				var sRegxKey2 = sKey+"[\\s\\S]*?\"val\"\\s:\\s[-\\d\\.]+\\s";
+				var regxKey2 = new RegExp(sRegxKey2, "m");
+				nMatch *= parseFloat(fMul);
+				var sMatch = aMatcher[0].replace(aMatcher[1], nMatch);
+				sRaw = sRaw.replace(regxKey2, sMatch );
+				return sRaw;
+			}
+			return sRaw;
+		
+	}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function dsonErcAdd(sRaw, sKey, fAdd)  
+{
+		//
+		var sRegxKey = sKey+"[\\s\\S]*?\"val\"\\s:\\s([-\\d\\.]+)\\s";
+		var regxKey = new RegExp(sRegxKey, "m");
+		var aMatcher = sRaw.match(regxKey);
+		if(!aMatcher)
+		{
+			return sRaw;
+		}
+		if(aMatcher.length<2)
+		{
+			return sRaw;
+		}
+		var nMatch = dsonErcParseVal(aMatcher);
+		if(aMatcher != null)
+		{
+			var sRegxKey2 = sKey+"[\\s\\S]*?\"val\"\\s:\\s[-\\d\\.]+\\s";
+			var regxKey2 = new RegExp(sRegxKey2, "m");
+			nMatch += parseFloat(fAdd);
+			var sMatch = aMatcher[0].replace(aMatcher[1], nMatch);
+			sRaw = sRaw.replace(regxKey2, sMatch );
+			return sRaw;
+		}
+		return sRaw;
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+//replaceAll is a string helper method, renamed
+function replAll(sData, sFind, sReplace)  
+{
+	var r = escapeRegExp(sFind);
+	sData = sData.replace(new RegExp(r, 'ig'), sReplace);
+	return sData;
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+// Get the root property group for node
+function getNodeProperties(oNode)
+{
+	var oPropGrpTree = oNode.getPropertyGroups();
+	var aProps = [];
+	var aProps2 = [];
+	var aList = oPropGrpTree.getAllPaths();
+	for(i = 0; i < aList.length; ++i)
+	{
+		if(aList[i].startsWith("General") || aList[i].startsWith("Display"))
+			{
+				continue;
+			}
+			else
+			{
+			aProps = aProps.concat(oPropGrpTree.findChild(aList[i]).getAllProperties());
+			}
+	}
+	for(i = 0; i < aList.length; ++i)
+	{
+		if(aList[i].startsWith("Hidden/Clones"))
+			{
+				continue;
+			}
+			else
+			{
+			aProps2 = aProps2.concat(oPropGrpTree.findChild(aList[i]).getAllProperties());
+			}	
+	}
+	for(i = 0; i < aProps2.length; ++i)
+	{
+		aProps2[i].setOverrideControllers(true);
+		aProps2[i].setCanAutoFollow(true);
+		if(!aProps2[i].getGroup().getPath().startsWith("General")&&!aProps2[i].getGroup().getPath().startsWith("Display"))
+		{
+			aProps2[i].setValue(oTick, 0);
+		}
+	}
+ 
+	return aProps;
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function setNodeProperties(oNode)
+{
+	var oPropGrpTree = oNode.getPropertyGroups();
+	var aProps = [];
+	var aList = oPropGrpTree.getAllPaths();
+	for(i = 0; i < aList.length; ++i)
+	{
+		if(aList[i].startsWith("Hidden/Clones")||aList[i].startsWith("General"))
+		{
+			continue;
+		}
+		else
+		{
+			aProps = aProps.concat(oPropGrpTree.findChild(aList[i]).getAllProperties());		
+		}
+	}
+	for(i = 0; i < aProps.length; ++i)
+	{
+		aProps[i].setOverrideControllers(false);
+		if(!aProps[i].getGroup().getPath().startsWith("General")&&!aProps[i].getGroup().getPath().startsWith("Display"))
+		{
+			var nTmp = aProps[i].getDefaultValue();
+			aProps[i].setValue(oTick, nTmp);
+		}
+		
+	}
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+//Extract required data (Name, vendor, product, URI) from property
+function addPropData(aCurrentProp, sTxt)	
+{	
+	var sFileExtension = getExtension(aCurrentProp);
+	if (sFileExtension != 'dsf')  
+	{
+		return;
+	}
+	var sVendorProduct = aCurrentProp.match( /Morphs\/([^\/]+)\/([^\/]+)/i );
+	var sFile = aCurrentProp.match( /\/([^\/]+)\.dsf/i );
+	var sPath = aCurrentProp.match( /Morphs\/[^\/]+\/[^\/]+\//i );
+	aVenPro = aVenPro.pushIfNotExists( sVendorProduct[1]+"\\"+sVendorProduct[2] );
+	aMorphs = aMorphs.pushIfNotExists(sModName);
+	var aTemp = [ sTxt,sVendorProduct[1],sVendorProduct[2],aCurrentProp,null];
+	var bTemp = false;
+	for(var i=0;i<aCheckedItems.length;i++)
+	{
+		if(aCheckedItems[i][6]==aTemp[0]&&aCheckedItems[i][7]==aTemp[1]&&aCheckedItems[i][8]==aTemp[2])
+		{
+			bTemp = true;
+		}
+	}
+	if(!bTemp)
+	{
+		var aMake = new Array(sTxt,"Basic",-1,"Dft","N/A")
+		aCheckedItems.pushIfNotExists(aMake.concat(aTemp));
+	}
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+//Extract required data (Name, vendor, product, URI) from property
+function getPropData(oCurrentProp, aArr)	
+{	
+	aMorphs = aMorphs.concat(oCurrentProp.name);
+	var sVendorProduct = oCurrentProp.assetUri.toLocalFilename().match( /Morphs\/([^\/]+)\/([^\/]+)/i );
+	var sFile = oCurrentProp.assetUri.toLocalFilename().match( /\/([^\/]+)\.dsf/i );
+	var sPath = oCurrentProp.assetUri.toLocalFilename().match( /Morphs\/[^\/]+\/[^\/]+\//i );
+	if(sVendorProduct == undefined)
+	{
+		var sVendorProduct = oCurrentProp.assetSource.toLocalFilename().match( /Morphs\/([^\/]+)\/([^\/]+)/i );
+			var sFile = oCurrentProp.assetSource.toLocalFilename().match( /\/([^\/]+)\.dsf/i );
+		var sPath = oCurrentPropassetSource.toLocalFilename().match( /Morphs\/[^\/]+\/[^\/]+\//i );
+	}
+	var aOut = new Array(oCurrentProp.name, sVendorProduct[1], sVendorProduct[2], oCurrentProp.assetUri.toLocalFilename());
+	aArr = aArr.concat(aOut);
+	print("&*&*&*&*&*&*&");
+	print("Name: "+oCurrentProp.name);
+	print("Vendor: "+sVendorProduct[1]);
+	print("product: "+sVendorProduct[2]);
+	print(oCurrentProp.assetUri.toLocalFilename());
+	print("&*&*&*&*&*&*&");
+	return aArr;
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+/*Process for reading auxillary data from support files
+Fairly dumb, merely reads text files and outputs an array
+based on one element per file line. Be aware, the prototypes 
+for G3/8F base helper files are in same folder as this prototype.
+Secondary files for expression mods are not done because you
+still haven't worked out how to do that. */	
+function readData(sFileName)  
+{
+	var bCompressed = isCompressed(sFileName);
+	var oFile1 = new DzFile(sFileName);
+	//begin processing by checking for compression
+	if (bCompressed)  
+	{
+		oFile1 = new DzGZFile(sFileName);
+	}
+
+	var r = oFile1.open( (bCompressed ? DzGZFile.ReadOnly : DzFile.ReadOnly) ); // if not yet open, which it should not, open it, readonly.
+	if (!r)  
+	{
+	   return false;
+	}
+
+	var sData = oFile1.readLines();
+	oFile1.close();
+	for( var i = 0; i < sData.length; i++ )
+	{
+		sData[i] = sData[i].trim();
+	}
+	return sData;
+}	
+function parseTabs(sData)
+{
+		for( var i = 0; i < sData.length; i++ )
+	{
+		sData[i] = sData[i].split("\t");
+	}
+	return sData;
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+function writeMorphs ( sVendor, sProduct, aMorphData, sNodeName)
+{
+	var aPropNames = [];
+	for( var i = 0; i < aMorphData.length; i++ )
+	{
+		if( aMorphData[i][7] == sVendor && aMorphData[i][8] == sProduct )
+		{
+			aPropNames = aPropNames.pushIfNotExists(aMorphData[i][6]);
+		}
+	}
+	var oAssetIOMgr = App.getAssetIOMgr();
+	var nAssetIOFilter = oAssetIOMgr.findFilter( "DzMorphSupportAssetFilter" );
+	var oAssetIOFilter = oAssetIOMgr.getFilter( nAssetIOFilter );
+	var oSettings = new DzFileIOSettings();
+	oAssetIOFilter.getDefaultOptions( oSettings );
+	oSettings.setStringValue( "RootLabel", oTgtNode.getLabel() );
+	oSettings.setStringValue( "BaseDataPath", sLib );
+	oSettings.setStringValue( "VendorName", sVendor );
+	oSettings.setStringValue( "ProductName", sProduct );
+	oSettings.setBoolValue( "CompressOutput", false );
+	oSettings.setBoolValue( "RunSilent", true );
+	var oSectionSetting = oSettings.setSettingsValue("NodeNames");
+	var oNodeSetting = oSectionSetting.setSettingsValue(sNodeName);
+	for( var i = 0; i < aPropNames.length; i++ )
+	{
+		oNodeSetting.setStringValue( String(i), aPropNames[i] );
+	}
+	var sFile = String(sLib+"/DzMorphSupportAssetFilter" ); //Sanitize
+ 
+	// Use the asset manager to save a file, using the filter and defined settings
+	oAssetIOMgr.doSaveWithOptions( oAssetIOFilter, oSettings, false, sFile, sLib, "" );
+	stepProgress( nProgress );
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+/*For first pass process of dsfs and copying of dsfs and pngs
+still need to be upgraded to pass the vendor and product with the
+label, if we even need label. After all, we need to pass the name. 
+just using label to find stuff, and passing the name should skip that
+step.
+Also needs creation of for-loops to handle replAll and dsonErc 
+actions, but that is based on building external data structures.
+Probably needs to lose sTargetFileName as we will be using 
+sTgtNodePath to define that and actual file name is going to be
+the same as sFileName, trucated using getFilename. Rather, we 
+need to pass the vendor and product to the oDir section, then
+use that plus result of get file name as the output file*/	
+function processDsfFile(aFileData)  
+{
+	var sTargetFileName = getFilename(aFileData);
+	//prant("Outfile?"+sTargetFileName);
+	var sListFileName = sOutPath+sTargetFileName;
+	sListFileName = sListFileName.replace(new RegExp("%20", "g"), " ");
+	aFilesOut.pushIfNotExists(sListFileName);
+	sTargetFileName = sHold+sTargetFileName;
+	aFileNames.pushIfNotExists(sTargetFileName);
+	createPath(dirPath(sTargetFileName));
+	createPath(dirPath(sListFileName));
+	var oFile = new DzFile(aFileData);
+	var sFileExtension = getExtension(aFileData);
+	if (sFileExtension == 'png')  
+	{
+		//Copy Png
+		var bCopy = oFile.copy(sListFileName);
+		stepProgress( nProgress*2 );
+		return;
+	}
+	else
+	{
+		//begin processing by checking for compression
+		var bCompressed = isCompressed(aFileData);
+		if (bCompressed)  
+		{
+			oFile = new DzGZFile(aFileData);
+		}
+		var r = oFile.open( (bCompressed ? DzGZFile.ReadOnly : DzFile.ReadOnly) ); // if not yet open, which it should not, open it, readonly.
+		if (!r)  
+		{
+		   return false;
+		}
+		
+		var sFilesDataRaw = oFile.readLines(); // finally, migrate data
+		var sData = sFilesDataRaw.join("");
+		sModName = snipLabel(sData);
+		addPropData(aFileData, sModName);
+		for( var i = 0; i < aKey.length; i++ )
+		{
+			if( (aKey[i] == "" && aReplace[i] == "") || (aKey[i] == null && aReplace[i] == null))
+			{
+				return;
+			}
+			else
+			{
+				sData = replAll(sData, aKey[i], aReplace[i]);
+			}
+		}
+		sData = replAll(sData, "GenesisGenesis", "Genesis");
+		sData = replAll(sData, "GenesisFemaleFemale", "GenesisFemale");
+		sData = replAll(sData, "GenesisMaleMale", "GenesisMale");
+		sData = replAll(sData, "Genesis3Female3Female", "Genesis3Female");
+		sData = replAll(sData, "Genesis3Male3Male", "Genesis3Male");
+		sData = replAll(sData, "Genesis8Female8Female", "Genesis8Female");
+		sData = replAll(sData, "Genesis8Male8Male", "Genesis8Male");
+		//This needs to happen before refactoring. This implies use of replace to remove mothopenwide or similar must occur after data
+		//is rejoined. meaning the join action must be removed from the save function and appened after refactoring.
+		// mouth open is somewhat 44% of original
+		// mouth open wide no longer exists. add it to mouth open, unchanged
+		// yes, that will exceed limits. while mouth open can now open more than g3,
+		// in total the mouth cannot be as much opened for G8 as for G3.
+
+		// eyes are different too aExKey
+		// lower eyelids morph is missing the dash, btw. <--This statement doesn't seem to mean anything
+		// so close... ;)
+		if( nSrc != nTgt)
+		{
+			for(var i = 1; i < aExKey.length; ++i)
+			{
+				sData = dsonErcMul(sData, aExKey[i][0], aExKey[i][1]);
+			}
+			var val;
+			if ((val = dsonErcGetVal(sData, 'eCTRLMouthOpenWide.dsf')))  
+			{
+				if(val!=0)
+				{
+					sData = dsonErcAdd(sData, 'eCTRLMouthOpen.dsf', val);
+				}
+			}
+		}
+		// write back data
+		var oFileOut = new DzFile(sTargetFileName);
+		oFileOut.open(DzFile.WriteOnly);
+		var r = oFileOut.write(sData);
+		oFileOut.close();
+		// close file handle
+		oFile.close();
+		stepProgress( nProgress );
+
+	}
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+/*This function reuses file open logic, so may need to make a function.
+It opens the saved output morph from post TU run and post save, then opens
+copied file from the holding folder. It the copies the deltas ouf the
+first file into the second before overwriting one of them. Right now, I 
+think it overwrites the wrong one. Need to establish the holding folder.
+Probably best to do that with DzDir outside this function, rather than 
+hard coding. This function wiil when complete, also be used to delete
+files from holding folder, if that can be done on perfile basis (it is a 
+function of DzDir, after all)*/
+function adjustMorph(sFileName)  
+{print(sFileName);
+	var bCompressed = isCompressed(sFileName);
+	var bCopy = false;
+	var aVen = sFileName.match( /Morphs\/([^\/]+)\/[^\/]+/i );
+	var aProd = sFileName.match( /Morphs\/[^\/]+\/([^\/]+)/i );
+	var aBones = readData(sBoneKey);
+	aBones = parseTabs(aBones);
+	var aBonesIdx = [];
+	for(var i=0; i<aBones.length; i++)
+	{
+		aBonesIdx.push(aBones[i][0]);
+	}
+	var aBoneAdjust = readData(sBoneAdj);
+	aBoneAdjust = parseTabs(aBoneAdjust);
+	var aBoneAdjustIdx = [];
+	for(var i=0; i<aBoneAdjust.length; i++)
+	{
+		aBoneAdjustIdx.push(aBoneAdjust[i][0]);
+	}
+	var aERC;
+	var sNewPath = getMorphsPath(sFileName)+aVen[1]+"/"+aProd[1]+"/"+sFileName.substr(sFileName.lastIndexOf("/")+1);
+	var sFileName3 = sNewPath;
+	var oFile1 = new DzFile(sFileName3);
+	var sFileExtension = getExtension(sFileName);
+	if (sFileExtension == 'png')  
+	{
+		// skip Png
+		stepProgress( nProgress*2 );
+		return;
+	}
+	else
+	{
+		//Check for compression
+		if (bCompressed)  
+		{
+			oFile1 = new DzGZFile(sFileName);
+		}
+		// Open read only
+		var r = oFile1.open( (bCompressed ? DzGZFile.ReadOnly : DzFile.ReadOnly) );
+		if (!r)  
+		{
+		   bCopy = true;
+		}
+	}
+		print(bCopy);
+	var sFileName2 = getFilename(sFileName);
+	sFileName2 = sHold+sFileName2;
+	print(sFileName2);
+	var oFile2 = new DzFile(sFileName2);
+	sFileExtension = getExtension(sFileName2);
+	if (sFileExtension == 'png')  
+	{
+		// skip Png
+		return;
+	}
+else
+	{
+		//Check for compression
+		if (bCompressed)  
+		{
+			oFile2 = new DzGZFile(sFileName2);
+		}
+		// Open read only
+		var r = oFile2.open( (bCompressed ? DzGZFile.ReadOnly : DzFile.ReadOnly) );
+		if (!r)  
+		{
+		   return false;
+		}
+	}
+	
+	var sFilesDataRaw = oFile1.readLines();
+	var sFilesDataRaw2 = oFile2.readLines();
+	// close file handles and clean up. Here is where we add the dzDir calls to delete the temp files after the close.
+	oFile1.close();
+	oFile2.close();
+	var sDel = oPath.relativeFilePath(sFileName2);
+	// finally, migrate data:
+	if(!bCopy)
+	{
+		var sData1 = sFilesDataRaw.join("");
+		var sData2 = sFilesDataRaw2.join("");
+		var aData1 = [];
+		if(sData1.indexOf("\t\"formulas\" : [") > 0)
+		{
+			aData1[0] = sData1.slice( 0, sData1.indexOf("\t\"formulas\" : ["));
+			if(sData1.indexOf("\t\"morph\" : {") > 0)
+			{
+				aData1[aData1.length] = sData1.slice( sData1.indexOf("\t\"formulas\" : ["), sData1.indexOf("\t\"morph\" : {"));
+				aData1[aData1.length] = sData1.slice( sData1.indexOf("\t\"morph\" : {"), sData1.indexOf("\t\"scene\" : {"));
+			}
+			else
+			{
+				aData1[aData1.length] = sData1.slice( sData1.indexOf("\t\"formulas\" : ["), sData1.indexOf("\t\"scene\" : {"));
+			}
+			aData1[aData1.length] = sData1.substring( sData1.indexOf("\t\"scene\" : {"));
+		}
+		else if(sData1.indexOf("\t\"morph\" : {") > 0)
+		{
+			aData1[0] = sData1.slice( 0, sData1.indexOf("\t\"morph\" : {"));
+			aData1[aData1.length] = sData1.slice( sData1.indexOf("\t\"morph\" : {"), sData1.indexOf("\t\"scene\" : {"));
+			aData1[aData1.length] = sData1.substring( sData1.indexOf("\t\"scene\" : {"));
+		}
+		else
+		{
+			aData1[0] = sData1;
+		}
+		var aData2 = [];
+		if(sData2.indexOf("\t\"formulas\" : [") > 0)
+		{
+			aData2[0] = sData2.slice( 0, sData2.indexOf("\t\"formulas\" : ["));
+			if(sData2.indexOf("\t\"morph\" : {") > 0)
+			{
+				aData2[aData2.length] = sData2.slice( sData2.indexOf("\t\"formulas\" : ["), sData2.indexOf("\t\"morph\" : {"));
+				aData2[aData2.length] = sData2.slice( sData2.indexOf("\t\"morph\" : {"), sData2.indexOf("\t\"scene\" : {"));
+			}
+			else
+			{
+				aData2[aData2.length] = sData2.slice( sData2.indexOf("\t\"formulas\" : ["), sData2.indexOf("\t\"scene\" : {"));
+			}
+			aData2[aData2.length] = sData2.substring( sData2.indexOf("\t\"scene\" : {"));
+		}
+		else if(sData2.indexOf("\t\"morph\" : {") > 0)
+		{
+			aData2[0] = sData2.slice( 0, sData2.indexOf("\t\"morph\" : {"));
+			aData2[aData2.length] = sData2.slice( sData2.indexOf("\t\"morph\" : {"), sData2.indexOf("\t\"scene\" : {"));
+			aData2[aData2.length] = sData2.substring( sData2.indexOf("\t\"scene\" : {"));
+		}
+		else
+		{
+			aData2[0] = sData2;
+		}
+		/*here we have the magic that parses the formulas data, gets the values, transforms the values and then writes them back.
+		It seemed like the files should be the same in structure, but sData1 should be the morph as written by Morph Loader, and sData2 should
+		be the source file with the unadjusted ERC data. So we perform the magic on sData2 and then import the deltas from sData1.
+		*/
+		var nD2Idx;
+		for(var i=0; i<aData2.length; i++)
+		{
+			if(aData2[i].startsWith("\t\"morph\" : {"))
+			{
+				nD2Idx = i;
+			}
+		}
+		for(var i=0; i<aData1.length; i++)
+		{
+			if(aData1[i].startsWith("\t\"morph\" : {"))
+			{
+				aData2[nD2Idx] = aData1[i];
+			}
+		}
+		for(var i=0; i<aData2.length; i++)
+		{
+			if(aData2[i].startsWith("\t\"formulas\""))
+			{
+				var aBoneSwapList = [];
+				var aERCList = [];
+				var aERCAdd = [];
+				var aMatch;
+				var aXchg = [];
+				var sBegin = "\t\"formulas\" : [";
+				var regexBegin = new RegExp(escapeRegExp(sBegin));
+				aData2[i] = aData2[i].replace(regexBegin, "");
+				aERC = aData2[i].split("\t},");
+				var sEnd = aERC[aERC.length-1].slice(aERC[aERC.length-1].length-13);
+				aERC[aERC.length-1] = aERC[aERC.length-1].slice(0,aERC[aERC.length-1].length-13);
+				for(var j=0; j<aERC.length; j++)
+				{
+					aMatch = aERC[j].match(/\n\t\t\t\t\{\n\t\t\t\t\t\"output\" : \"([^:]+):[^?]+\?([^\/]+)\/([xyz])[^\]]+\]\n\t\t\t/);
+					if(aMatch == null)
+					{ 
+					aXchg.push([-1,aERC[j],-1]);
+					continue;
+					}
+					var nIdxTmp  = aBonesIdx.indexOf(aMatch[1]);
+					var sString;
+					if(nIdxTmp == -1)
+					{
+						aXchg.pushIfNotExists([aBonesIdx.indexOf(aMatch[1]),aERC[j],aMatch[1],"*"]);
+					}
+					else
+					{
+						aXchg.pushIfNotExists([aBonesIdx.indexOf(aMatch[1]),aERC[j],aMatch[1],aBones[nIdxTmp][1]]);//prant(aBonesIdx.indexOf(aMatch[1])+"::"+aMatch[1]);
+						if(aBones[nIdxTmp].length > 2)
+						{
+							for(var k=2; k<aBones[nIdxTmp].length; k++)
+							{
+								aXchg.pushIfNotExists([aBonesIdx.indexOf(aMatch[1]),aERC[j],aMatch[1],aBones[nIdxTmp][k]]);
+							}
+						}
+					}
+				}
+				for(var j=0; j<aXchg.length; j++)
+				{
+					if(aXchg[j][0] == -1)
+					{
+						aERCList.pushIfNotExists(aXchg[j][1]);
+					}
+					else
+					{
+						aMatch = aXchg[j][1].match(/\n\t\t\t\t\{\n\t\t\t\t\t\"output\" : \"([^:]+):[^?]+\?([^\/]+)\/([xyz])[^\]]+\]\n\t\t\t/);
+						if(aBones[aXchg[j][0]][1] == "REMOVE")
+						{
+							continue;
+						}
+						var sElement = aXchg[j][1].replace(aXchg[j][2],aXchg[j][3]);
+						var nAdjIdx = parseFloat(aBoneAdjustIdx.indexOf(aBones[aXchg[j][0]][1]));
+						var nLength = aERCList.length;
+						var bAdd = false;
+						if(aBones[aXchg[j][1]] == "REMOVE")
+						{
+							continue;
+						}
+						var sID = sData2.match(/modifier_library[\s\S]*?id.\s:\s.([^"]+).,/);
+						if(sID == null||sID[1] == null)
+						{
+							sID = sData.match(/channel[\s\S]*?label.\s:\s.([^"]+).,/);
+						}
+						if(sID == null||sID[1] == null)
+						{
+							sID = sData.match(/modifier_library[\s\S]*?name.\s:\s.([^"]+).,/);
+						}
+						var oMorph = oTgtObj.findModifier(sID[1]);
+						if(oMorph==null)
+						{
+							print("-----");
+							print("Morph name: "+sID[2]);
+							print("Not Found");
+							//continue;
+						}
+						if(aMatch[2] != "end_point"&&aMatch[2] != "center_point")
+						{
+							aBoneSwapList.pushIfNotExists(sElement);
+						}						
+						else
+						{
+							var oDeltaFinal = oMorph.getDeltas();
+							var oDeltVctr;
+							var aVertList = aBoneAdjust[nAdjIdx].slice(2);
+							var nX = 0;
+							var nY = 0;
+							var nZ = 0;
+							for(var kk = 0; kk < aVertList.length; ++kk)
+							{
+								var nDeltVctr = oDeltaFinal.getVertexDeltaIndex(aVertList[kk]);
+								if(nDeltVctr != -1)
+								{
+								oDeltVctr = oDeltaFinal.getDeltaVec(nDeltVctr);
+								nX = nX + parseFloat(oDeltVctr.x);
+								nY = nY + parseFloat(oDeltVctr.y);
+								nZ = nZ + parseFloat(oDeltVctr.z);
+								}
+							}
+							if(aMatch[3] == "x")
+							{
+								nX = nX/aVertList.length;
+								sElement = dsonErcReplace(sElement, nX);
+							}
+							else if(aMatch[3] == "y")
+							{
+								nY = nY/aVertList.length;
+								sElement = dsonErcReplace(sElement, nY);
+							}
+							else if(aMatch[3] == "z")
+							{
+								nZ = nZ/aVertList.length;
+								sElement = dsonErcReplace(sElement, nZ);
+							}
+							aBoneSwapList.pushIfNotExists(sElement);
+						}
+					}
+				}
+				var aERC1 = aBoneSwapList.concat(aERCAdd,aERCList);
+				aData2[i] = aERC1.join("\t},");
+				aData2[i] = sBegin+aData2[i]+sEnd;
+			}
+		}
+		sData1 = aData2.join("");
+		var regexFix = new RegExp("\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t],\n\t\t}\n\t\t\t],\n\t\t\t","m");
+		var nTemps = sData1.lastIndexOf("\n\t\t}\n\t\t\t],\n\t\t\t\"morph\"");
+		sData1 = sData1.replace(regexFix,"\t\t\t\t\t]\n\t\t\t\t}\n\t\t\t],\n\t\t\t");
+		var oDelPath = DzDir(sBaseLib);
+		var aVen2 = sFileName.match( /Morphs\/([^\/]+)\/[^\/]+/i );
+		var aProd2 = sFileName.match( /Morphs\/[^\/]+\/([^\/]+)/i );
+		var sNewPath2 = getMorphsPath(sFileName)+aVen2[1]+"/"+aProd2[1]+"/"+sFileName.substr(sFileName.lastIndexOf("/")+1);
+		var sDel2 = oDelPath.relativeFilePath(sNewPath2);
+		var regexFix2 = new RegExp("\n\t\t\t\t\t\t]\n\t\t}","m")
+		sData1 = sData1.replace(regexFix2,"\n\t\t\t\t}\n\t\t\t]\n\t\t}");
+		var bDel2 = oDelPath.remove(sDel2);
+		var regxG2A = /"formulas"/;
+		var regxG2B = /#geometry/;
+		if(sData1.match(regxG2A)&&sData1.match(regxG2B))
+		{
+			var nID = "";
+			if(nTgt==8)
+			{
+				nID = 8;
+			}
+			if(nTgt==7)
+			{
+				nID = 3;
+			}
+			if(sTgt=="F"&&nID==8)
+			{
+				sData1 = replAll(sData1, "#geometry", "#Genesis"+nID+"Female");
+			}
+			if(sTgt=="F")
+			{
+				sData1 = replAll(sData1, "#geometry", "#Genesis"+nID+"Female-1");
+			}
+			if(sTgt=="M")
+			{
+				sData1 = replAll(sData1, "#geometry", "#Genesis"+nID+"Male");
+			}
+			if(sTgt=="B")
+			{
+				sData1 = replAll(sData1, "#geometry", "#Genesis");
+			}
+		}
+		else if(nTgt==6&&sData1.match(regxG2B))
+		{
+			if(sTgt=="F")
+			{
+				sData1 = replAll(sData1, "#geometry", "#GenesisFemale-1");
+			}
+			if(sTgt=="M")
+			{
+				sData1 = replAll(sData1, "#geometry", "#Genesis2Male");
+			}
+			
+		}
+	}
+	if(bCopy)
+	{
+		var sData1 = sFilesDataRaw2.join("");
+	}
+	// write back data
+	var oFileOut = new DzFile(sFileName);
+	oFileOut.open(DzFile.WriteOnly);
+	var r = oFileOut.write(sData1);
+	if (!r)
+	{
+		  print("Failed to write file "+sFileName);  
+	}
+	oFileOut.close();
+	print("=====================================");
+	stepProgress( nProgress );
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+/*Here we invoke TU to correct the bad morph vectors*/
+function makeTfClone ( oSourceFig, oSourceShape, oTargetFig, oTargetShape)
+{
+	var oPropB = oTargetFig.getPropertyGroups().getFirstChild();
+	var oScal = oPropB.findPropertyByLabel("Scale",true,true);
+	oScal.setValue(1);
+	var oCloneBuilder = DzTransferUtility();
+	oCloneBuilder.setUseNearness( true );
+	oCloneBuilder.setAdaptiveTolerance( 1 );
+	oCloneBuilder.setAdjustTargetBase( false );
+	oCloneBuilder.setAddSmoothModifier( false );
+	oCloneBuilder.setDistanceSquaredTolerance( 0.32 );
+	oCloneBuilder.setFitToFigure( true );
+	oCloneBuilder.setLockViewOnTransfer( true );
+	oCloneBuilder.setMergeHierarchies( false );
+	oCloneBuilder.setNearness( 10 );
+	oCloneBuilder.setOverrideExistingMorphs( true );
+	oCloneBuilder.setParentToFigure( true );
+	oCloneBuilder.setRespectHiddenFacets( false );
+	oCloneBuilder.setSilentImporters( true );
+	oCloneBuilder.setSmartLeftRightHandling( true );
+	oCloneBuilder.setSource( oSourceFig );
+	oCloneBuilder.setSourceBaseMorph( oSourceShape );
+	oCloneBuilder.setTarget( oTargetFig );
+	oCloneBuilder.setAdjustTargetBase( true );
+	oCloneBuilder.setTargetBaseMorph( oTargetShape );
+	oCloneBuilder.setTargetReplacesSource( false );
+	oCloneBuilder.setTransferBinding( true );
+	oCloneBuilder.setTransferFaceGroups( true );
+	oCloneBuilder.setTransferMaterialGroups( false );
+	oCloneBuilder.setTransferRegionGroups( false );
+	oCloneBuilder.setTransferSelectionMap( true );
+	oCloneBuilder.setTransferTemplateMorphs( false );
+	oCloneBuilder.setTransferUVs( false );
+	oCloneBuilder.setUseSpecifiedContentType( false );
+	oCloneBuilder.setUVSpaceProjection( false );
+	//probaly want to set both below to true for G3 to G8 and G8 to G3
+	oCloneBuilder.setVertexFirstProjection( true );
+	oCloneBuilder.doTransfer();
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+/*Here we invoke TU to correct the bad morph vectors*/
+function fixTfClone ( oSourceFig, oTargetFig)
+{
+	var oPropB = oTargetFig.getPropertyGroups().getFirstChild();
+	var oScal = oPropB.findPropertyByLabel("Scale",true,true);
+	oScal.setValue(1);
+	var oCloneBuilder = DzTransferUtility();
+	oCloneBuilder.setUseNearness( true );
+	oCloneBuilder.setAdaptiveTolerance( 1 );
+	oCloneBuilder.setAdjustTargetBase( true );
+	oCloneBuilder.setAddSmoothModifier( false );
+	oCloneBuilder.setDistanceSquaredTolerance( 0.032 );
+	oCloneBuilder.setFitToFigure( true );
+	oCloneBuilder.setLockViewOnTransfer( true );
+	oCloneBuilder.setMergeHierarchies( false );
+	oCloneBuilder.setNearness( 15 );
+	oCloneBuilder.setOverrideExistingMorphs( true );
+	oCloneBuilder.setParentToFigure( true );
+	oCloneBuilder.setRespectHiddenFacets( false );
+	oCloneBuilder.setSilentImporters( true );
+	oCloneBuilder.setSmartLeftRightHandling( true );
+	oCloneBuilder.setSource( oSourceFig );
+	oCloneBuilder.setSourceBaseCurrent();
+	oCloneBuilder.setTarget( oTargetFig );
+	oCloneBuilder.setTargetReplacesSource( false );
+	oCloneBuilder.setTransferBinding( true );
+	oCloneBuilder.setTransferFaceGroups( false );
+	oCloneBuilder.setTransferMaterialGroups( false );
+	oCloneBuilder.setTransferRegionGroups( false );
+	oCloneBuilder.setTransferSelectionMap( false );
+	oCloneBuilder.setTransferTemplateMorphs( false );
+	oCloneBuilder.setTransferUVs( false );
+	oCloneBuilder.setUseSpecifiedContentType( false );
+	oCloneBuilder.setUVSpaceProjection( false );
+	//probaly want to set both below to true for G3 to G8 and G8 to G3
+	oCloneBuilder.setVertexFirstProjection( false );
+	oCloneBuilder.doTransfer();
+}
+/*********************************************************************/
+/*funcName*/
+/*****A method to *****/
+/*Here we invoke TU*/
+function doGenNext ( oSourceFig, oSourceShape, oTargetFig, oTargetShape, aDeltaMorphNames)
+{
+	var oPropB = oTargetFig.getPropertyGroups().getFirstChild();
+	var oScal = oPropB.findPropertyByLabel("Scale",true,true);
+	oScal.setValue(1);
+	var oDeltaWrite = DzTransferUtility();
+	oDeltaWrite.setAdaptiveTolerance( 1 );
+	oDeltaWrite.setAddSmoothModifier( false );
+	oDeltaWrite.setAdjustTargetBase( false );
+	oDeltaWrite.setDistanceSquaredTolerance( 0.32 );
+	oDeltaWrite.setFitToFigure( false );
+	oDeltaWrite.setLockViewOnTransfer( true );
+	oDeltaWrite.setMergeHierarchies( false );
+	oDeltaWrite.setMorphTransferList( aDeltaMorphNames );
+	oDeltaWrite.setNearness( 10	);
+	oDeltaWrite.setOverrideExistingMorphs( true );
+	oDeltaWrite.setParentToFigure( false );
+	oDeltaWrite.setRemoveUnusedTargetBones( false );
+	oDeltaWrite.setRespectHiddenFacets( false );
+	oDeltaWrite.setSilentImporters( true );
+	oDeltaWrite.setSmartLeftRightHandling( true );
+	oDeltaWrite.setSource( oSourceFig );
+	oDeltaWrite.setSourceBaseMorph( oSourceShape );
+	oDeltaWrite.setTarget( oTargetFig );
+	oDeltaWrite.setTargetBaseMorph( oTargetShape );
+	oDeltaWrite.setTargetReplacesSource( false );
+	oDeltaWrite.setTransferBinding( false );
+	oDeltaWrite.setTransferFaceGroups( false );
+	oDeltaWrite.setTransferMaterialGroups( false );
+	oDeltaWrite.setTransferMorphs( true );
+	oDeltaWrite.setTransferRegionGroups( false );
+	oDeltaWrite.setTransferSelectionMap( false );
+	oDeltaWrite.setTransferTemplateMorphs( false );
+	oDeltaWrite.setTransferUVs( false );
+	oDeltaWrite.setUseSpecifiedContentType( false );
+	oDeltaWrite.setUVSpaceProjection( false );
+	//probaly want to set both below to true for G3 to G8 and G8 to G3
+	oDeltaWrite.setVertexFirstProjection( false );
+	oDeltaWrite.setUseNearness( true );
+	oDeltaWrite.doTransfer();
+}
+/*********************************************************************/
+/*saveObjFile*/
+/*****A method to generate an obj file for MorphLoader*****/
+function saveObjFile(sInput,sTrfType,sBake,sComp)
+{
+			print("Morph = "+sInput);
+			print("Transfer Type = "+sTrfType);
+			print("Bake Mode = "+sBake);
+			print("Companion = "+sComp);
+	var oMorph = oTgtObj.findModifier(sInput);
+	var oMorphA = oSrcObj.findModifier(sInput);
+	var oMorphB;
+	if(!oMorph)
+	{
+			print("No oMorph!");
+		return;
+	}
+	else
+	{
+		var sLabel = oMorph.getLabel();
+		if(!oMorphA)
+		{
+			print("no oMorphA!");
+			return;
+		}
+		else
+		{
+			print("1");
+			oMorphA = oMorphA.getValueChannel();
+			print("2");
+			oMorphA.setValue(1);
+			print("3");
+			if(sComp!=null)
+			{
+				var oMorphB = oSrcObj.findModifier(sComp);
+			}
+			print("4");
+			if(oMorphB)
+			{
+			print("5");
+				oMorphB = oMorphB.getValueChannel();
+				oMorphB.setValue(1);
+			}
+			else
+			{
+			print("No oMorphB!");
+			}
+			processEvents();
+			sleep(500);
+			processEvents();
+			print("6");			
+			var oTfObj = oTrsfNode.getObject();
+			print("7");
+			var oTfGeo = oTfObj.getCachedGeom();
+			print("");
+			var nTfVtx = oTfGeo.getNumVertices();
+			print("8");
+			var nTfFct = oTfGeo.getNumFacets();
+			print("9");
+			var oDelta = oMorph.getDeltas();
+			print("A");
+			var bDeltLoad = oDelta.loadDeltas();
+			print("B");
+			var oShpDelta = oSrcPro;
+			print("C");
+			var oShpRef = oSrcProj;
+			print("D");
+			var nDelta = oDelta.getNumDeltas();
+			print("E");
+			var nShpDelta = oShpDelta.getNumDeltas();
+			print("F");
+			var aMorphVtx = new Array(oTgtGeo.getNumVertices());
+			print("G");
+			var nDeltaIdx;
+			print("H");
+			var oDeltVctr;
+			print("I");
+			for(var i=0;i<aMorphVtx.length;i++)
+			{
+				aMorphVtx[i] = new Array(3);
+			}
+			aDelta = fillArray(new DzVec3(0,0,0), nTfVtx);
+			aDelta2 = fillArray(new DzVec3(0,0,0), nTfVtx);
+			for(var i=0;i<nDelta;i++)
+			{
+				nDeltaIdx = oDelta.getDeltaIndex(i);
+				aDelta2[nDeltaIdx] = oDelta.getDeltaVec(i);
+			}
+			var sMorph = sInput;
+			var oMorphProp = oMorph.getValueChannel();
+			var sGrpPath = oMorph.getValueChannel().getPath();
+			bDeltLoad = oDelta.unLoadDeltas();
+			var aObjTxt = [];
+			for( var i = 0; i < nTfVtx; i++ )
+			{
+				var vtx = oTfGeo.getVertex( i );
+				aObjTxt[i] = new String("v "+vtx.x+" "+vtx.y+" "+vtx.z);
+			}
+			for( var i = 0; i < nTfFct; i++ )
+			{
+				var oFacet = oTfGeo.getFacet( i );
+				if( oFacet.vertIdx4 >= 0 )
+				{
+					aObjTxt.push(new String( "f "+( oFacet.vertIdx1 + 1 )+ " " + ( oFacet.vertIdx2 + 1 )+ " " + ( oFacet.vertIdx3 + 1 )+ " " + ( oFacet.vertIdx4 + 1 )));
+				}
+				else
+				{
+					aObjTxt.push(new String( "f "+( oFacet.vertIdx1 + 1 )+ " " + ( oFacet.vertIdx2 + 1 )+ " " + ( oFacet.vertIdx3 + 1 )));
+				}
+			}
+			var sFlName = sObjHold+sMorph+".obj";
+			var oFile = new DzFile(sFlName);
+			aObjFileList = aObjFileList.pushIfNotExists(sFlName);
+			aObjMorphList = aObjMorphList.pushIfNotExists(sMorph);
+			aObjPropList = aObjPropList.pushIfNotExists(sMorph);
+			aObjPathList = aObjPathList.concat(sGrpPath);
+			oFile.open(DzFile.WriteOnly);
+			oFile.write(aObjTxt.join("\n"));
+			oFile.close();
+			var oObjMorph = new DzMorphLoader();
+			processEvents();
+			oObjMorph.setFilename(sFlName); //will use code that writes the output objs to get that list
+			oObjMorph.setMorphName(sMorph);
+			oObjMorph.setDeltaTolerance(0.001);
+			oObjMorph.setCreateControlProperty(false);
+			oObjMorph.setPropertyGroupPath(sGrpPath); //For safely failing. Should be overridden by existing.
+			oObjMorph.setReverseDeformations(true);
+			oObjMorph.setOverwriteExisting(DzMorphLoader.DeltasOnly);
+			oObjMorph.setMorphMirroring(DzMorphLoader.DoNotMirror);
+			oObjMorph.setPreserveExistingDeltas(false);
+			oObjMorph.createMorph(oObjImpSettings, oTgtNode, true, true);
+			processEvents();
+			print("0");
+			oFinMorph = oTgtObj.findModifier(sInput);
+			oFinDelta = oFinMorph.getDeltas();
+			nFinDelta = oFinDelta.getNumDeltas();
+			var oTvec = new DzVec3(0,0,0);
+			for(var i=0;i<nFinDelta;i++)
+			{
+				nDeltaIdx = oFinDelta.getDeltaIndex(i);
+				aDelta[nDeltaIdx] = oFinDelta.getDeltaVec(i);
+			}
+			var aBIdx = [];
+			var aBFac = [];
+			if((sTrfType=="Body"||sTrfType=="Head")&&(oMorphB)&&(sBake="Bake"))
+			{
+				oFinDelta.removeAllDeltas();
+				aBlendMap = readData(getBasePath("/data/Architect/GenNext/Data/"+nTgt+sTgt+"blend.gnxt"));
+				aBlendMap = parseTabs(aBlendMap);
+				for(var i=0;i<aDelta.length;i++)
+				{
+					var nBIdx = aBIdx.find(i);
+					var nBFac = parseFloat(aBlendMap[i][1]);
+					var nMult = nBFac;
+					if(sTrfType=="Head")
+					{
+						nMult = 1-nBFac;
+					}
+					if(nMult==0)
+					{
+						continue;
+					}
+					else
+					{
+						var nRefIdx = oShpRef.getVertexDeltaIndex(i);
+						var nShpIdx = oShpDelta.getVertexDeltaIndex(i);
+						var oShpDlt = oShpDelta.getDeltaVec(nShpIdx);
+						if(nRefIdx==-1)
+						{
+							var oNewVec = aDelta2[i].add(oShpDlt);
+						}
+						else
+						{
+							var oNewVec = aDelta[i].add(oShpDlt);
+						}
+						oNewVec.setLength(oNewVec.length()*nMult);
+						oFinDelta.addDelta(i,oNewVec,true);
+					}
+				}
+				oMorphB.setValue(0);
+			}
+			else if(sTrfType=="Head"&&!oMorphB)
+			{
+				oFinDelta.removeAllDeltas();
+				aBlendMap = readData(getBasePath("/data/Architect/GenNext/Data/"+nTgt+sTgt+"blend.gnxt"));
+				aBlendMap = parseTabs(aBlendMap);
+				for(var i=0;i<aDelta.length;i++)
+				{
+					var nBIdx = aBIdx.find(i);
+					var nBFac = parseFloat(aBlendMap[i][1]);
+					var nMult =  1-nBFac;
+					if(nMult==0)
+					{
+						continue;
+					}
+					else
+					{
+					var nRefIdx = oShpRef.getVertexDeltaIndex(i);
+					var nShpIdx = oShpDelta.getVertexDeltaIndex(i);
+					var oShpDlt = oShpDelta.getDeltaVec(nShpIdx);
+					if(nRefIdx==-1)
+					{
+						var oNewVec = aDelta2[i].add(oShpDlt);
+					}
+					else
+					{
+						var oNewVec = aDelta[i].add(oShpDlt);
+					}
+					oNewVec.setLength(oNewVec.length()*nMult);
+					oFinDelta.addDelta(i,oNewVec,true);
+					}
+				}
+			}
+			else if(bBake||sBake!="Dft")
+			{
+				oFinDelta.removeAllDeltas();
+				for(var i=0;i<aDelta.length;i++)
+				{
+					var nRefIdx = oShpRef.getVertexDeltaIndex(i);
+					var nShpIdx = oShpDelta.getVertexDeltaIndex(i);
+					var oShpDlt = oShpDelta.getDeltaVec(nShpIdx);
+					if(nRefIdx==-1)
+					{
+						var oNewVec = aDelta2[i].add(oShpDlt);
+					}
+					else
+					{
+						var oNewVec = aDelta[i].add(oShpDlt);
+					}
+					oFinDelta.addDelta(i,oNewVec,true);
+				}
+			}
+			else
+			{
+				oFinDelta.removeAllDeltas();
+				for(var i=0;i<aDelta.length;i++)
+				{
+					if(!aDelta2[i].equals(oTvec))
+					{
+						var nRefIdx = oShpRef.getVertexDeltaIndex(i);
+						if(nRefIdx==-1)
+						{
+							var oNewVec = aDelta2[i];
+						}
+						else
+						{
+							var oNewVec = aDelta[i];
+						}
+						if(!oNewVec.equals(oTvec))
+						{
+							oFinDelta.addDelta(i,oNewVec,true);
+						}
+					}
+				}
+			}
+			oMorphA.setValue(0);
+			oMorphA.setOverrideControllers(false);
+			sDel3 = oObjPath.relativeFilePath(sFlName);
+			bDel = oObjPath.remove(sDel3);
+		}
+	}
+}
+/*********************************************************************/
+/*doIt*/
+/*****Main Execution function *****/
+function doIt()
+{var nInner = 0;var nOuter = 0;
+	var aCheckedObjects = wMorphsLV.getItems(DzListView.Checked);
+	if(aCheckedObjects.length==0)
+	{
+		MessageBox.information( qsTr("No Morphs Checked.\nPlease mark one or more morphs above."), qsTr("GenNext Selection Error"), qsTr("&Exit"));
+		return;
+	}
+	if(!oSrcNode)
+	{
+		MessageBox.information( qsTr("Source Figure not Selected.\nPlease select a figure source from the dropdown."), qsTr("GenNext Selection Error"), qsTr("&Exit"));
+		return;
+	}
+	if(!oTgtNode)
+	{
+		MessageBox.information( qsTr("Target Figure not Selected.\nPlease select a figure target from the dropdown.."), qsTr("GenNext Selection Error"), qsTr("&Exit"));
+		return;
+	}
+	if( sLib == null) 
+	{
+		MessageBox.critical( qsTr("Default Library not found. " +
+		"GenNext requires a default library."), qsTr("GenNext Error"), qsTr("&Exit"));
+		return;
+	}
+	startTimer();
+	bBake = wCBBake.checked;
+	startProgress( "Processing" , 30000, true , true );
+	bCheckedOnly = wCBOnlyMorphsChecked.checked;
+	sHold = getBasePath("/data/Architect/GenNext/Holding/Morphs"); //Set Holding folders strings.
+	sObjHold = getBasePath("/data/Architect/GenNext/Holding/Objs");
+	oPath = getBaseDir("/data/Architect/GenNext/Holding/Morphs"); //Set Holding folders.
+	oObjPath = getBaseDir("/data/Architect/GenNext/Holding/Objs");
+	sSrcID = oSrcNode.assetId; //Get ID of the node for feeding into readData() for helper file selection
+	sTgtID = oTgtNode.assetId; //Get ID of the node for feeding into readData() for helper file selection
+	sSrcNodePath = oSrcNode.assetUri.filePath.replace( /\/([^\/]+\.dsf)/, "/" ); //Get absolute path of Source node URI (may not be necessary)
+	if(sSrcNodePath == "")
+	{
+		sSrcNodePath = oSrcNode.assetSource.filePath.replace( /\/([^\/]+\.dsf)/, "/" ); //capture correct path if node is in modified state
+	}
+	var sTgtNodePath = oTgtNode.assetUri.filePath.replace( /\/([^\/]+\.dsf)/, "/" ); //Get library relative path of Target node URI to setup exclusion of Connect Lib as writeback option (for setting up definition of output folder
+	if(sTgtNodePath == "")
+	{
+		sTgtNodePath = oTgtNode.assetSource.filePath.replace( /\/[^\/]+\.dsf/, "/" ); //capture correct path if node is in modified state
+	}
+	App.statusLine(sSrcNodePath+"\n"+sTgtNodePath);
+	aKey = readData(getBasePath("/data/Architect/GenNext/Data/"+sSrcID+".gnxt"));
+	aReplace = readData(getBasePath("/data/Architect/GenNext/Data/"+sTgtID+".gnxt"));
+	aSupFigs = readData(getBasePath("/data/Architect/GenNext/Data/SupportedFigures.gnxt"));
+	aSupFigs = parseTabs(aSupFigs);
+	for(var i = 0; i < aSupFigs.length; ++i)
+	{
+		if(aSupFigs[i][0] == sSrcID)
+		{
+			nSrc = aSupFigs[i][1];
+			sSrc = aSupFigs[i][2];
+		}
+		if(aSupFigs[i][0] == sTgtID)
+		{
+			nTgt = aSupFigs[i][1];
+			sTgt = aSupFigs[i][2];
+		}
+	}
+	sExID = nSrc+"to"+nTgt;
+	sExID2 = nTgt+sTgt;
+	sExID3 = nSrc+sSrc+"to"+nTgt+sTgt;
+	aExKey = readData(getBasePath("/data/Architect/GenNext/Data/"+sExID+".gnxt"));
+	aExKey = parseTabs(aExKey);
+	aDeltaKey = readData(getBasePath("/data/Architect/GenNext/Data/"+sExID2+"Deltas.txt"));
+	sBoneKey = getBasePath("/data/Architect/GenNext/Data/"+sExID+"Bones.gnxt");
+	sBoneAdj = getBasePath("/data/Architect/GenNext/Data/"+sExID2+"BonesAdj.gnxt");
+	bObjWrite = true;
+	sOutPath = sLib+sTgtNodePath+"Morphs"; //Use assetUri on Target node to add to output path base.
+	stepProgress( 300 );
+	nOuter++;
+	App.statusLine( "Collected Transfer Data", true );
+	for(var i=0;i<aCheckedObjects.length;i++)
+	{
+		aCheckedItems.push([aCheckedObjects[i].text(0),aCheckedObjects[i].text(2),aCheckedObjects[i].text(4),aCheckedObjects[i].text(5),aCheckedObjects[i].text(6)]);
+	}
+	for(var i=0;i<aCheckedItems.length;i++)
+	{
+		aCheckedItems[i][5] = aMorphsArray[aCheckedItems[i][2]];
+	}
+	if( oSrcNode ) //Get selected favorites from source.
+	{
+		for( var i = 0; i < aCheckedItems.length; i++ )
+		{
+			var oProperty = aCheckedItems[i][5];
+			var oProperty2 = oProperty.getOwner();
+			if(oProperty.name == "Value")
+			{
+				aCheckedItems[i] = getPropData(oProperty2,aCheckedItems[i]);
+			}
+			else
+			{
+				aCheckedItems[i] = getPropData(oProperty,aCheckedItems[i]);
+			}		
+		}
+	}
+	for (var i = 0; i < aCheckedItems.length; ++i)
+	{
+		for (var j = 0; j < aCheckedItems.length; ++j)
+		{
+			if(j==i)
+			{
+				continue
+			}
+			if(aCheckedItems[i][3]!="Bake")
+			{
+				aCheckedItems[i][10]=null;
+			}
+			else if((getFolderPath(aCheckedItems[i][9])==getFolderPath(aCheckedItems[j][9]))&&(aCheckedItems[j][1]=="Body"||aCheckedItems[j][1]=="Head")&&aCheckedItems[j][3]!="FBM")
+			{
+				if(aCheckedItems[i][1]==aCheckedItems[j][1])
+				{
+					//need an error condition here, because that should not happen. Or maybe not, because it can happen.
+					continue;
+				}
+				else
+				{
+					aCheckedItems[i][10]=aCheckedItems[j][0];
+				}
+			}
+		}
+	}
+	//Check morph names against target properties. If exists request user confirmation for overwrite.
+	if(bCheckedOnly)
+	{
+		for (var i = 0; i < aCheckedItems.length; ++i)
+		{
+			//print("Item: "+aCheckedItems[i]);
+			aFiles.pushIfNotExists(aCheckedItems[i][9]);
+			if(aCheckedItems[i][4]==1)
+			{
+				var sNewFolder = getMorphsPath(aCheckedItems[i][9])+aCheckedItems[i][7]+"/"+aCheckedItems[i][8];
+				aFolders = aFolders.pushIfNotExists(sNewFolder);
+			}
+		}
+		for (var i = 0; i < aFolders.length; ++i)
+		{
+			if(!aFolders[i])
+			{
+				break;
+			}
+			var aTemp = DzDir(aFolders[i]).getFilesFromDir(aString);
+			//print(aTemp.length);
+			for (var j = 0; j < aTemp.length; ++j)
+			{
+				aFiles = aFiles.pushIfNotExists(aTemp[j]);
+			}
+		}
+		stepProgress( 300 );
+		nOuter++;
+		if(aFolders.length>0)
+		{
+			App.statusLine( "Identified "+aFolders.length+" full products to transfer", true );
+		}
+		else
+		{
+			App.statusLine( "Identified "+aCheckedItems.length+" properties to transfer", true );
+		}
+	}
+	else
+	{//This needs to be made a function that is called piecemeal by the above or invoked as a whole if this condition is invoked.
+		for (var i = 0; i < aCheckedItems.length; ++i) 
+		{
+			var sNewFolder = getMorphsPath(aCheckedItems[i][9])+aCheckedItems[i][7]+"/"+aCheckedItems[i][8];
+			
+		}
+		stepProgress( 300 );
+		nOuter++;
+		App.statusLine( "Identified "+aFolders.length+" products to transfer", true );
+		for (var i = 0; i < aFolders.length; ++i)
+		{
+			//print(aFolders[i]);
+			var aTemp = DzDir(aFolders[i]).getFilesFromDir(aString);
+			//print(aTemp.length);
+			for (var j = 0; j < aTemp.length; ++j)
+			{
+				aFiles = aFiles.pushIfNotExists(aTemp[j]);
+			}
+		}
+	}
+	stepProgress( 300 );
+		nOuter++;
+	if(aFolders.length>0)
+	{
+		App.statusLine( "Identified "+(aFiles.length+aCheckedItems.length)+" files to process", true );	
+	}
+	else
+	{
+		App.statusLine( "Identified "+aFiles.length+" files to process", true );	
+	}
+	/*Copy files from product folder to holding folder. Retain vendor/product/sub structure
+	During copy build morph names vendor product list.*/
+	nProgress = (27600/aFiles.length)/4;
+	for (var i = 0; i < aFiles.length; ++i)
+	{
+		print(aFiles[i]);
+		processDsfFile(aFiles[i]);
+	}
+	stepProgress( 300 );
+		nOuter++;
+	App.statusLine( "Temporary files copied\nStarting morphs transfer", true );
+	/*Transfer Utility using selections as source/target and node names plus suffix to set source/shapes and morphs list 
+	for transfer*/
+	oPropBase = oSrcNode.getPropertyGroups().getFirstChild();
+	oPropBase1 = oTgtNode.getPropertyGroups().getFirstChild();
+	oSrcClone = oPropBase.findPropertyByLabel( "GNXARC", true, true ); //these are not mistakes. The source looks of the target name and the target looks for the target name. 
+	oTgtClone = oPropBase1.findPropertyByLabel( "GNXARC", true, true );
+	oTgtCloneName = "GNXARC";
+	if( nSrc >= 8 && nTgt != 8 )
+	{
+		oTgtClone = oPropBase1.findPropertyByLabel( "GNXALTARC", true, true );
+		oTgtCloneName = "GNXALTARC";
+	}
+	oSrcClone = oSrcClone.getOwner();
+	oTgtClone = oTgtClone.getOwner();
+	doGenNext ( oSrcNode, oSrcClone, oTgtNode, oTgtClone, aMorphs);
+	processEvents();
+	if(bObjWrite)
+	{
+		var oReso = oPropBase.findPropertyByLabel("Resolution Level",true,true);
+		var oSubD = oPropBase.findPropertyByLabel("SubDivision Level",true,true);
+		var oScale = oPropBase.findPropertyByLabel("Scale",true,true);
+		if(!oSubD)
+		{
+			var oSubD = oPropBase.findPropertyByLabel("View SubD Level",true,true);
+		}
+		var oTfPose = oPropBase.findPropertyByLabel("8GNXPose",true,true);
+		var oPose = oPropBase1.findPropertyByLabel("8GNXPose",true,true);
+		if(bScale)
+		{
+			oScale.setValue(nScaleVal);
+		}
+		oReso.setValue(0); //deactivates smoothing
+		oSubD.setValue(0); //deactivates SubD
+		var oReso1 = oPropBase1.findPropertyByLabel("Resolution Level",true,true);
+		var oSubD1 = oPropBase1.findPropertyByLabel("SubDivision Level",true,true);
+		if(!oSubD1)
+		{
+			var oSubD1 = oPropBase.findProperty("SubDIALevel",true,true);
+		}
+		var oScale1 = oPropBase1.findPropertyByLabel("Scale",true,true);
+		if(!oSubD)
+		{
+			var oSubD1 = oPropBase1.findPropertyByLabel("View SubD Level",true,true);
+		}
+		if(bScale)
+		{
+			oScale1.setValue(nScaleVal);
+		}
+		oShp = oPropBase1.findPropertyByLabel("GNX"+nSrc+sSrc+"SHP",true,true);
+		oReso1.setValue(0); //deactivates smoothing
+		oSubD1.setValue(0); //deactivates SubD
+		oShp.setValue(1); //activates the shape
+		oPose.setValue(1);
+		oTfPose.setValue(1);
+		processEvents(); //forces studio to update geometry
+	}
+		processEvents(); //forces studio to update geometry
+		aObjFileList = [];
+		aObjMorphList = [];
+		aObjPropList = [];
+		aObjPathList = [];
+		oVertex;
+		oTgtObj = oTgtNode.getObject();
+		oSrcObj = oSrcNode.getObject();
+		processEvents();
+		sleep( 500 );
+		processEvents();
+		oTgtGeo = oTgtObj.getCachedGeom();
+		var oTgtShp = oTgtObj.getCurrentShape();
+		nTgtVtx = oTgtGeo.getNumVertices();
+		nTgtFct = oTgtGeo.getNumFacets();
+		var oNewFile = new DzFile( sObjHold+"/GenNext.obj" );
+		oNewFile.open( DzFile.WriteOnly );
+		for( var i = 0; i < nTgtVtx; i++ )
+		{
+			var vtx = oTgtGeo.getVertex( i );
+			oNewFile.writeLine("v "+vtx.x+" "+vtx.y+" "+vtx.z);
+		}
+		for( var i = 0; i < nTgtFct; i++ )
+		{
+			var oFacet = oTgtGeo.getFacet( i );
+			if( oFacet.vertIdx4 >= 0 )
+			{
+				oNewFile.writeLine( "f "+( oFacet.vertIdx1 + 1 )+ " " + ( oFacet.vertIdx2 + 1 )+ " " + ( oFacet.vertIdx3 + 1 )+ " " + ( oFacet.vertIdx4 + 1 ));
+			}
+			else
+			{
+				oNewFile.writeLine( "f "+( oFacet.vertIdx1 + 1 )+ " " + ( oFacet.vertIdx2 + 1 )+ " " + ( oFacet.vertIdx3 + 1 ));
+			}
+		}
+		oNewFile.close();
+		
+		var oImportMgr = App.getImportMgr()
+		var oImporter = oImportMgr.findImporterByClassName( "DzObjImporter"	);
+		var oSttngs = new DzFileIOSettings();
+		oSttngs.setFloatValue( "Scale", 1 );
+		oSttngs.setStringValue( "LatAxis", "X" );
+		oSttngs.setStringValue( "VertAxis", "Y" );
+		oSttngs.setStringValue( "DepthAxis", "Z" );
+		oSttngs.setBoolValue( "InvertLat", false );
+		oSttngs.setBoolValue( "InvertVert", false );
+		oSttngs.setBoolValue( "InvertDepth", false );
+		oSttngs.setBoolValue( "ShowIndividualSettings", false );
+		oSttngs.setIntValue( "RunSilent", 1 );
+		oImporter.readFile( sObjHold+"/GenNext.obj", oSttngs );
+		oImporter.deleteLater();
+		processEvents();
+		sleep( 500 );
+		processEvents();
+		oTrsfNode = Scene.findNodeByLabel("GenNext");
+		fixTfClone(oSrcNode,oTrsfNode);
+		oTrsfNode = Scene.findNodeByLabel("GenNext");
+		processEvents();
+		oSrcPro = oTgtObj.findModifier("GNX"+nSrc+sSrc+"SHP").getDeltas();
+		oSrcPro.loadDeltas();
+		oSrcProj = new DzMorphDeltas ();
+		nSP = oSrcPro.getNumDeltas();
+		for(i=0;i<nSP;i++)
+		{
+			oSrcProj.addDelta(oSrcPro.getDeltaIndex(i),oSrcPro.getDeltaVec(i));
+		}
+		var aBlendM = readData(getBasePath("/data/Architect/GenNext/Data/"+nTgt+sTgt+"blend.gnxt"));
+		aBlendM = parseTabs(aBlendM);
+		for(var i=0;i<aBlendM.length;i++)
+		{
+			if(aBlendM[i][1]==0)
+			{
+				oSrcProj.removeVertex(aBlendM[i][0]);
+			}
+		}
+		for(var i = 0; i < aCheckedItems.length; i++)
+		{
+			App.statusLine( "Saving Object for "+aCheckedItems[i][6], true );
+			saveObjFile(aCheckedItems[i][6],aCheckedItems[i][1],aCheckedItems[i][3],aCheckedItems[i][10]); //expected file name, transfer type, bake status, companion morph(usually Null)
+			stepProgress( nProgress );
+		nInner++;
+		}
+		oShp.setValue(0); //deactivates the shape
+		oPose.setValue(0);
+		oTfPose.setValue(0);
+		var oActMgr = MainWindow.getActionMgr();
+		var oAct = oActMgr.getAction(3);
+		var nNodes = Scene.getNumNodes();
+		for(i=0;i<nNodes;i++)
+		{
+			var oSNode = Scene.getNode(i);
+			oSNode.select(false);
+		}
+		oTrsfNode.select(true);
+		oAct.trigger();
+		processEvents();
+		
+		oObjMorph = null;
+		oPose.setValue(0); //deactivates the pose
+		oReso.setValue(1); //reactivates smoothing
+		oSubD.setValue(1); //reactivates SubD
+		oReso1.setValue(1); //reactivates smoothing
+		oSubD1.setValue(1); //reactivates SubD
+		processEvents(); //forces studio to update geometry
+	/*Save morphs, feeding vendor/product as filter to define output paths and morphs list 
+	to id saved morphs*/
+	var aVP;
+	stepProgress( 300 );
+		nOuter++;//oFail.getAllPaths();
+	App.statusLine( "Writing morph Deltas", true );
+	for( var i = 0; i < aVenPro.length; i++ )
+	{
+		aVP = aVenPro[i].split("\\");
+		writeMorphs ( aVP[0], aVP[1], aCheckedItems, oTgtNode.getName());
+		nInner++;
+	}
+	/*Open saved DSFs and matching DSFs in holding folder and replace deltas in holding file with saved file deltas. 
+	Overwite saved files.*/
+	stepProgress( 300 );
+		nOuter++;
+	App.statusLine( "Morph deltas written\nCorrecting ERC links", true );
+	processEvents();
+	for (var i = 0; i < aFilesOut.length; ++i)
+	{
+		App.statusLine("Correcting ERC links for "+aFilesOut[i]);
+		adjustMorph(aFilesOut[i]);
+		nInner++;
+	}
+	stepProgress( 300 );
+		nOuter++;
+	var oCleanM = oPath;
+	var oCleanO = oObjPath;
+	var aCleanM = oCleanM.getFilesFromDir(new Array("*.dsf","*.DSF"),true);
+	var aCleanO = oCleanO.getFilesFromDir(new Array("*.obj","*.OBJ"),true);
+	for(i=0;i<aCleanM.length;i++)
+	{
+		var sDPath = oCleanM.relativeFilePath(aCleanM[i]);
+		oCleanM.remove(sDPath);
+		bDel = oCleanM.rmpath(aCleanM[i].substr(0,aCleanM[i].lastIndexOf("/")));
+	}
+	for(i=0;i<aCleanO.length;i++)
+	{
+		var sDPath = oCleanO.relativeFilePath(aCleanO[i]);
+		oCleanO.remove(sDPath);
+		bDel = oCleanO.rmpath(aCleanO[i].substr(0,aCleanO[i].lastIndexOf("/")));
+	}
+	oTgtNode.select(true);
+	oSrcNode.select(true);
+	oAct.trigger();
+	processEvents();
+	App.statusLine( "Transfer Complete", true );
+	stepProgress( 300 );
+		nOuter++;
+	App.statusLine( nOuter+"::"+nInner, true );
+	finishProgress();
+	endTimer();
+	if(MessageBox.information( qsTr("Process Completed."), qsTr("GenNext Done"), qsTr("&Exit"))==0)
+	{
+		clsUI();
+	}
+}
+/*****************************
+   Script Execuction
+*****************************/
+var oTick = Scene.getTime();
+var bBake = false;
+var oShp;
+var oHeadShp;
+var oSrcProj;
+var oSrcPro;
+var oBodyShp;
+var nBod = 0;
+var nFHMFBM = 0;
+var bShwClns = false;
+var aFigs = ["Genesis8Female","Genesis8Male","Genesis3Female","Genesis3Male","GenesisFemale","GenesisMale","Genesis"];
+var aIcons = ["/People/Genesis 8 Female/Genesis 8 Basic Female.png","/People/Genesis 8 Male/Genesis 8 Basic Male.png","/People/Genesis 3 Female/Genesis 3 Female.png","/People/Genesis 3 Male/Genesis 3 Male.png","/People/Genesis 2 Female/Genesis 2 Base Female.png","/People/Genesis 2 Male/Genesis 2 Base Male.png","/People/Genesis/Genesis.png"];
+var aCloudIcons = ["/people/genesis 8 female/genesis 8 basic female.png","/people/genesis 8 male/genesis 8 basic male.png","/people/genesis 3 female/genesis 3 female.png","/people/genesis 3 male/genesis 3 male.png","/people/genesis 2 female/genesis 2 base female.png","/people/genesis 2 male/genesis 2 base male.png","/people/genesis/genesis.png"];
+var appTitle = "GenNext v0.6.1.0b";
+var oContentMgr	 = App.getContentMgr(); //Get Content Manager 
+var nDirType;
+var sMatch = "";
+var aString = ["*.dsf", "*.png"] //for limiting search param
+var sModName = "";
+var aFileNames = [];
+var oPath;
+var oObjPath;
+var sHold; 
+var sObjHold; 
+var sSrcID;
+var sTgtID;
+var sSrcNodePath;
+var aKey;
+var aReplace;
+var nSrc = null;
+var nTgt = null;
+var sSrc = null;
+var sTgt = null;
+var aSupFigs;
+var sExID;
+var sExID2;
+var aExKey;
+var aQuats;
+var aQuats2;
+var sBoneKey;
+var sBoneAdj;
+var bObjWrite;
+var sOutPath;
+var aMorphNames = [];
+var aMorphs = [];
+var aFolders = [];
+var aFiles = [];
+var aFilesOut = [];
+var aVenPro = [];
+var aProperties = [];
+var oSrcClone; 
+var oTgtClone;
+var oTgtCloneName;
+var aBaseVtx = [];
+var aObjFileList = [];
+var aObjMorphList = [];
+var aObjPropList = [];
+var aObjPathList = [];
+var oVertex;
+var oTgtObj;
+var oSrcObj;
+var oTgtGeo;
+var nTgtVtx ;
+var oObjMorph;
+var aFaces;
+var bCheckedOnly = false;
+var bScale = false;
+var nScaleVal = 1;
+var oPropBase;
+var oTrsfNode;
+var oObjImport = App.getImportMgr().findImporterByClassName("DzObjImporter");
+var oObjImpSettings = new DzFileIOSettings();
+oObjImpSettings.setIntValue("RunSilent", 1);
+oObjImpSettings.setBoolValue("IncludeG", false);
+oObjImpSettings.setBoolValue("IncludeMtllib", false);
+oObjImpSettings.setBoolValue("IncludeUsemtl", false);
+oObjImpSettings.setBoolValue("IncludeVT", false);
+oObjImpSettings.setBoolValue("InvertDepth", false);
+oObjImpSettings.setBoolValue("InvertLat", false);
+oObjImpSettings.setBoolValue("InvertVert", false);
+oObjImpSettings.setStringValue("DepthAxis", "Z");
+oObjImpSettings.setStringValue("LatAxis", "X");
+oObjImpSettings.setStringValue("VertAxis", "Y");
+oObjImpSettings.setFloatValue("Scale", 1);
+nDirType = DzContentMgr.AllDirsAndCloud;
+var sBaseLib = oContentMgr.getMappedPath(nDirType, "/data/Architect/GenNext/Data/SupportedFigures.gnxt",true);
+var sLib; //Set Primary Library as output path base.
+var aLibs = [];
+var oSrcNode; //Source node
+var nSrcImgIdx; //Source icon
+var oTgtNode; //Target node
+var nTgtImgIdx; //Target icon
+var nLibs = oContentMgr.getNumContentDirectories();
+for(var i=0;i<nLibs;i++)
+{
+	aLibs.pushIfNotExists(oContentMgr.getContentDirectory(i).folderName);
+}
+var aNodes = Scene.getSkeletonList();
+var aNodesList =[]; //when populated, contains Node name and skeleton index number for use in telling the scriptwich figures are which, and the path to the icon for pixmap
+var nProgress;
+var bReverse = false;
+var sInLineHlp = "<b>%1</b><br/>(%2)<br/><br/>%3";
+var sRadTxt = "These checks indicate whether the selected property is a head, body or other.<br/><br/><i><b>NOTES:<b/><br/>For dial spun characters, these will have little or no effect. Some such characters have custom shaping, and will be impacted by the setting. Most don't. Try to transfer dials and setting character without marking Head or Body, and see if it works.<br/><br/>Some Character products have multiple heads. It's okay to mark them as such. The script will work it out. Some have multiple bodies, again, the script can do that. Some have both multiple heads and multiple bodies. The script cannot figure that out. For best results, transfer those in related pairs (vendors susually have a head for each body with the option to mix and match). Otherwise, use your best judgement as to which go together";
+/****************************************
+Build UI
+****************************************/
+var wDialog = new DzBasicDialog;
+wDialog.minWidth = 416;
+wDialog.minHeight = 565;
+wDialog.showAcceptButton(false);
+wDialog.insideMargin = 0;
+wDialog.toolTip = appTitle;
+wDialog.whatsThis = sInLineHlp.arg("GenNext").arg(wDialog.toolTip).arg("<i>There is no Dana. Only Zuul.</i>");
+//wDialog.spacing = 1;
+var wContainer = new DzVGroupBox( wDialog );
+wContainer.minWidth = 392;
+wContainer.minHeight = 502;
+wContainer.flat = true;
+var wTabStack = new DzTabWidget( wContainer );
+wTabStack.minWidth = 390;
+wTabStack.minHeight = 500;
+var wTab1 = new DzVGroupBox(wTabStack);
+	wTab1.insideMargin = 0;
+	wTab1.insideSpacing = 0;
+var wTab2 = new DzVGroupBox(wTabStack);
+	wTab2.insideMargin = 0;
+	wTab2.insideSpacing = 0;
+var wMainLayout = new DzGridLayout( wTab1 );
+var wOptionLayout = new DzGridLayout( wTab2 );
+var wBttnLayout = new DzGridLayout( wContainer );
+wTabStack.addTab(wTab1, "Transfer Settings" );
+wTabStack.addTab(wTab2, "Options" );
+var aNodes = Scene.getSkeletonList();
+var aNodesList =[]; //when populated, contains Node name and skeleton index number for use in telling the scriptwich figures are which, and the path to the icon for pixmap
+for(var i=0;i<aNodes.length;i++) //stop the G8 eyelash figure from appearing in the list
+{
+	if(aNodes[i].assetId.match( "Eyelashes")||aNodes[i].assetId.match( "Genesis")==undefined)
+	{
+		continue;
+	}
+	else if(aNodes[i].assetId == "GenesisFemale")
+	{
+		aNodesList.pushIfNotExists(["Genesis 2 Female",i]);
+		continue;
+	}
+	else if(aNodes[i].assetId == "GenesisMale")
+	{
+		aNodesList.pushIfNotExists(["Genesis 2 Male",i]);
+		continue;
+	}
+	else if(aNodes[i].assetId == "Genesis3Female")
+	{
+		aNodesList.pushIfNotExists(["Genesis 3 Female",i]);
+		continue;
+	}
+	else if(aNodes[i].assetId == "Genesis3Male")
+	{
+		aNodesList.pushIfNotExists(["Genesis 3 Male",i]);
+		continue;
+	}
+	else if(aNodes[i].assetId == "Genesis8Female")
+	{
+		aNodesList.pushIfNotExists(["Genesis 8 Female",i]);
+		continue;
+	}
+	else if(aNodes[i].assetId == "Genesis8Male")
+	{
+		aNodesList.pushIfNotExists(["Genesis 8 Male",i]);
+		continue;
+	}
+	else
+	{
+		aNodesList.pushIfNotExists([aNodes[i].assetId,i]);
+	}
+}
+wMainLayout.insideMargin = 0;
+wMainLayout.spacing = 1;
+wDialog.caption = appTitle;
+wTab1.flat = true;
+wTab2.flat = true;
+var aMorphsArray = [];
+var aMorphsArrayList = [];
+var imgOne = new Pixmap(getBasePath("/data/Architect/GenNext/data/DefaultIcon.png")); //Default image
+var imgTwo = new Pixmap(getBasePath("/data/Architect/GenNext/data/arrowC91.png")); //static image
+var imgThree = new Pixmap(getBasePath("/data/Architect/GenNext/data/DefaultIcon.png")); //Default image
+var imgFour;
+var imgFive;
+var oUGB0 = new DzVGroupBox( wTab1 );
+var wGBLab0 = new DzLabel(oUGB0);
+var wGBCombo0 = new DzComboBox(oUGB0);
+wGBCombo0.addItem("Source");
+for(var i=0;i<aNodesList.length;i++)
+{
+	wGBCombo0.addItem(aNodesList[i][0].toString());
+}
+connect( wGBCombo0, " activated(const QString&)",fComboBox0);
+wGBLab0.pixmap = imgOne;
+wGBLab0.toolTip = "Select a Figure from the list below";
+wGBLab0.whatsThis = sInLineHlp.arg("Source Image").arg(wGBLab0.toolTip).arg("");
+wGBCombo0.maxWidth = imgOne.width;
+wGBCombo0.toolTip = "Select the figure you wish to take morphs from";
+wGBCombo0.whatsThis = sInLineHlp.arg("Source Figure Select").arg(wGBCombo0.toolTip).arg("The Source Figure is the figure that has the morphs you wish to transfer <i>before</i> running GenNext.");
+oUGB0.flat = true;
+wMainLayout.addWidget( oUGB0, 0, 0 );
+var oUGB1 = new DzVGroupBox( wTab1 );
+var wGBLab1 = new DzLabel(oUGB1);
+wGBLab1.pixmap = imgTwo;
+oUGB1.insideMargin = 0;
+oUGB1.flat = true;
+wMainLayout.addWidget( oUGB1, 0, 1 );
+var oUGB2 = new DzVGroupBox( wTab1 );
+var wGBLab2 = new DzLabel(oUGB2);
+var wGBCombo2 = new DzComboBox(oUGB2);
+wGBCombo2.addItem("Target");
+for(var i=0;i<aNodesList.length;i++)
+{
+	wGBCombo2.addItem(aNodesList[i][0].toString());
+}
+connect( wGBCombo2, " activated(const QString&)",fComboBox2);
+wGBLab2.pixmap = imgThree;
+wGBLab2.toolTip = "Select a Figure from the list below";
+wGBLab2.whatsThis = sInLineHlp.arg("Target Image").arg(wGBLab0.toolTip).arg("");
+wGBCombo2.maxWidth = imgThree.width;
+wGBCombo2.toolTip = "Select the figure you wish to send morphs to";
+wGBCombo2.whatsThis = sInLineHlp.arg("Source Figure Select").arg(wGBCombo2.toolTip).arg("The Target Figure is the figure that will receive the morphs you wish to transfer <i>after</i> running GenNext.");
+oUGB2.flat = true;
+wMainLayout.addWidget( oUGB2, 0, 2 );
+var oUGB3 = new DzVGroupBox( wTab1 );
+oUGB3.insideMargin = 0;
+var wMorphFilterLab = new DzLabel(oUGB3);
+wMorphFilterLab.text = "Enter Text to Filter by...";
+var wMorphFilter = new DzLineEdit(oUGB3);
+wMorphFilter.toolTip = "Enter text to filter by ...";
+wMorphFilter.whatsThis = sInLineHlp.arg("Morph Filtering").arg("Automatic Search").arg("The filter will cull the Morphs list based on text entered here.<br/>The filter is NOT case sensitive. <br/>It will not show certain morph types unless the options on the options tab are changed. <i>This is for your safety, as transfering such morphs will probably break your figures.</i>");
+connect( wMorphFilter, "textChanged(const QString&)",LineEditfunc)
+var wMorphsListLab0 = new DzLabel(oUGB3);
+wMorphsListLab0.text = "<b>Transfer List<\b>";
+var wMorphsLV = new DzListView(oUGB3);
+wMorphsLV.addColumn("Label");
+wMorphsLV.addColumn("Name");
+wMorphsLV.addColumn("Type");
+wMorphsLV.addColumn("Grp");
+wMorphsLV.addColumn("Idx");
+wMorphsLV.addColumn("Bake");
+wMorphsLV.addColumn("Prod");
+wMorphsLV.setColumnWidthMode(0,0);
+wMorphsLV.setColumnWidthMode(1,0);
+wMorphsLV.setColumnWidthMode(2,0);
+wMorphsLV.setColumnWidthMode(3,0);
+wMorphsLV.setColumnWidthMode(4,0);
+wMorphsLV.setColumnWidthMode(5,0);
+wMorphsLV.setColumnWidthMode(6,0);
+wMorphsLV.setColumnWidth(0,wMorphsLV.width*1.4);
+wMorphsLV.setColumnWidth(1,wMorphsLV.width*0.85);
+wMorphsLV.setColumnWidth(2,wMorphsLV.width*0.35);
+wMorphsLV.setColumnWidth(3,wMorphsLV.width*0.8);
+wMorphsLV.setColumnWidth(4,wMorphsLV.width*0.25);
+wMorphsLV.setColumnWidth(5,wMorphsLV.width*0.35);
+wMorphsLV.setColumnWidth(6,wMorphsLV.width*0.05);
+wMorphsLV.allColumnsShowFocus = true;
+wMorphsLV.selectionMode = DzListView.Single;
+connect( wMorphsLV, "clicked(DzListViewItem*)",MorphsListfunc);
+var wMorphsCtrls0 = new DzHGroupBox(oUGB3);
+wMorphsCtrls0.insideMargin = 1;
+wMorphsCtrls0.flat = true;
+wMorphsCtrls0.whatsThis = sInLineHlp.arg("Selection Controls").arg("Settings for Property transfer").arg("These options control only the selected property. If the property selection is changed, the controls will reset to adopt the status of the new selected property.");
+var wCBEnable = new DzCheckBox(wMorphsCtrls0);
+wCBEnable.text = "Enable";
+wCBEnable.toolTip = "Check to mark the selected property"
+wCBEnable.whatsThis = sInLineHlp.arg("Enable Transfer").arg(wCBEnable.toolTip).arg("");
+connect( wCBEnable, " clicked()",Checkboxfunc3);
+var wRdBnGrp = new DzHButtonGroup(wMorphsCtrls0);
+wRdBnGrp.toolTip = "Property Type"
+wRdBnGrp.whatsThis = sInLineHlp.arg("Type Selection").arg(wRdBnGrp.toolTip).arg(sRadTxt);
+wRdBnGrp.insideMargin = 0;
+var wRdBnGrpLab = new DzLabel(wRdBnGrp);
+wRdBnGrpLab.text = "Type:  ";
+wRdBnGrpLab.whatsThis = sInLineHlp.arg("Type Selection").arg(wRdBnGrp.toolTip).arg(sRadTxt);
+var wRdBnH = new DzRadioButton(wRdBnGrp);
+wRdBnH.text = "Head";
+wRdBnH.whatsThis = sInLineHlp.arg("Type Selection").arg(wRdBnGrp.toolTip).arg(sRadTxt);
+connect( wRdBnH, " clicked()",RadioButfunc0);
+var wRdBnB = new DzRadioButton(wRdBnGrp);
+wRdBnB.text = "Body";
+wRdBnB.whatsThis = sInLineHlp.arg("Type Selection").arg(wRdBnGrp.toolTip).arg(sRadTxt);
+connect( wRdBnB, " clicked()",RadioButfunc0);
+var wRdBnO = new DzRadioButton(wRdBnGrp);
+wRdBnO.text = "Basic";
+wRdBnO.whatsThis = sInLineHlp.arg("Type Selection").arg(wRdBnGrp.toolTip).arg(sRadTxt);
+wRdBnO.checked = true;
+connect( wRdBnO, " clicked()",RadioButfunc0);
+var wMorphsCtrls1 = new DzHGroupBox(oUGB3);
+wMorphsCtrls1.insideMargin = 1;
+wMorphsCtrls1.flat = true;
+wMorphsCtrls1.whatsThis = sInLineHlp.arg("Selection Controls").arg("Settings for Property transfer").arg("These options control only the selected property. If the property selection is changed, the controls will reset to adopt the status of the new selected property.");
+var wModeLab = new DzLabel(wMorphsCtrls1);
+wModeLab.text = "Bake Mode";
+wModeLab.maxWidth = 55;
+wModeLab.toolTip = ""
+wModeLab.whatsThis = sInLineHlp.arg("").arg(wModeLab.toolTip).arg("");
+var wComboMode = new DzComboBox(wMorphsCtrls1);
+wComboMode.addItem("Default(No Bake)");
+wComboMode.addItem("Bake Source Shape");
+wComboMode.addItem("FBM Bake(Special)");
+wComboMode.AlignRight;
+wComboMode.toolTip = ""
+wComboMode.whatsThis = sInLineHlp.arg("").arg(wComboMode.toolTip).arg("");
+connect( wComboMode, " activated(int)",ComboBox5func);
+var wCBProd = new DzCheckBox(wMorphsCtrls1);
+wCBProd.text = "Transfer Complete Product";
+wCBProd.toolTip = ""
+wCBProd.whatsThis = sInLineHlp.arg("").arg(wCBProd.toolTip).arg("");
+connect( wCBProd, " clicked()",Checkboxfunc4);
+var aCheckedItems = [];
+wMainLayout.addWidget( oUGB3, 1, 0, 3, 3 );
+var oUGB4 = new DzVGroupBox( wTab1 );
+oUGB4.insideMargin = 0;
+oUGB4.setFixedHeight( 40 );
+var wLibLab = new DzLabel(oUGB4);
+wLibLab.text = "Select Output Library";
+var wGBCombo4 = new DzComboBox(oUGB4);
+wGBCombo4.addItem("Select Output Library");
+wGBCombo4.toolTip = ""
+wGBCombo4.whatsThis = sInLineHlp.arg("").arg(wGBCombo4.toolTip).arg("");
+for(var i=0;i<aLibs.length;i++)
+{
+	if(aLibs[i] == oContentMgr.getCloudContentDirectoryPath().folderName)
+	{
+		continue;
+	}
+	wGBCombo4.addItem(aLibs[i]);
+}
+connect( wGBCombo4, " activated(int)",ComboBox4func);
+wMainLayout.addWidget( oUGB4, 4, 0, 1, 3 );
+var oUGB5 = new DzVGroupBox( wTab2 );
+oUGB5.flat = true;
+var wCBOnlyMorphsChecked = new DzCheckBox(oUGB5);
+wCBOnlyMorphsChecked.text = "Uncheck this box to transfer all morphs that were packaged with the\nchecked items in their original, individual products.";
+wCBOnlyMorphsChecked.checked = true;
+wCBOnlyMorphsChecked.toolTip = ""
+wCBOnlyMorphsChecked.whatsThis = sInLineHlp.arg("").arg(wCBOnlyMorphsChecked.toolTip).arg("");
+wOptionLayout.addWidget( oUGB5, 0, 0);
+var oUGB6 = new DzVGroupBox( wTab2 );
+oUGB6.flat = true;
+var oUGB6GL = new DzGridLayout(oUGB6);
+var wCBBake = new DzCheckBox(oUGB6);
+wCBBake.text = "Bake Source Shape to all transfered Morphs";
+wCBBake.toolTip = ""
+wCBBake.whatsThis = sInLineHlp.arg("").arg(wCBBake.toolTip).arg("");
+oUGB6GL.addWidget(wCBBake,1,1);
+var oUGB7 = new DzVGroupBox( wTab2 );
+oUGB7.flat = true;
+var oUGB7GL = new DzGridLayout(oUGB7);
+var wCBShwClns = new DzCheckBox(oUGB7);
+wCBShwClns.text = "Show Clones";
+wCBShwClns.toolTip = ""
+wCBShwClns.whatsThis = sInLineHlp.arg("").arg(wCBShwClns.toolTip).arg("");
+connect( wCBShwClns, " clicked()",Checkboxfunc2);
+wOptionLayout.addWidget( oUGB7, 2, 0);
+wDialog.insertWidget(0,wContainer);
+var wButAcp = new DzPushButton( wDialog );
+wButAcp.text = "Accept";
+wButAcp.AlignLeft;
+wButAcp.toolTip = ""
+wButAcp.whatsThis = sInLineHlp.arg("").arg(wButAcp.toolTip).arg("");
+connect( wButAcp, "clicked()", doIt );
+wDialog.addButton( wButAcp );
+var wButClr = new DzPushButton( wDialog );
+wButClr.text = "Clear List";
+wButClr.AlignLeft;
+wButClr.toolTip = ""
+wButClr.whatsThis = sInLineHlp.arg("").arg(wButClr.toolTip).arg("");
+connect( wButClr, "clicked()", clearList );
+wDialog.addButton( wButClr );
+var wButHlp = new DzPushButton( wDialog );
+wButHlp.text = "Help";
+wButHlp.AlignLeft;
+wButHlp.toolTip = ""
+wButHlp.whatsThis = sInLineHlp.arg("").arg(wButHlp.toolTip).arg("");
+connect( wButHlp, "clicked()", doHelp );
+wDialog.addButton( wButHlp );
+wDialog.exec();
+})();

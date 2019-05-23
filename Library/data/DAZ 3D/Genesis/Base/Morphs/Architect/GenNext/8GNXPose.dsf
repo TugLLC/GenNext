@@ -1,0 +1,484 @@
+{
+	"file_version" : "0.6.0.0",
+	"asset_info" : {
+		"id" : "/data/DAZ%203D/Genesis/Base/Morphs/Architect/GenNext/8GNXPose.dsf",
+		"type" : "modifier",
+		"contributor" : {
+			"author" : "Architect",
+			"email" : "",
+			"website" : "http://www.singularblues.com"
+		},
+		"revision" : "1.0",
+		"modified" : "2019-04-04T20:01:34Z"
+	},
+	"modifier_library" : [
+		{
+			"id" : "8GNXPose",
+			"name" : "8GNXPose",
+			"parent" : "/data/DAZ%203D/Genesis/Base/Genesis.dsf#Genesis",
+			"presentation" : {
+				"type" : "",
+				"label" : "",
+				"description" : "",
+				"icon_large" : "",
+				"colors" : [ [ 0.07843137, 0, 0 ], [ 0.4196078, 0, 0.003921569 ] ]
+			},
+			"channel" : {
+				"id" : "value",
+				"type" : "float",
+				"name" : "8GNXPose",
+				"label" : "8GNXPose",
+				"visible" : false,
+				"value" : 0,
+				"min" : 0,
+				"max" : 1,
+				"clamped" : true,
+				"display_as_percent" : true,
+				"step_size" : 0.04
+			},
+			"group" : "/Hidden/Clones/Architect",
+			"formulas" : [
+				{
+					"output" : "lThigh:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lThigh?rotation/x",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 1 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lThigh:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lThigh?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 6 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lFoot:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lFoot?rotation/x",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -2 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rThigh:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rThigh?rotation/x",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 1 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rThigh:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rThigh?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -6 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rFoot:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rFoot?rotation/x",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -2 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rShldr:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rShldr?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -3 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rShldr:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rShldr?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 45 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rForeArm:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rForeArm?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -6 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rHand:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rHand?rotation/x",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 10 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rHand:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rHand?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -17 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rHand:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rHand?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 1.5 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rThumb2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rThumb2?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 23.5 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rThumb2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rThumb2?scale/x",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 0.028 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rThumb3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rThumb3?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 22.48726 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rIndex1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rIndex1?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -18.79618 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rIndex2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rIndex2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -20 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rIndex3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rIndex3?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -11.70064 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rMid1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rMid1?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 0.1176472 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rMid1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rMid1?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -20.73567 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rMid2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rMid2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -20 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rMid3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rMid3?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -13.00956 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rCarpal2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rCarpal2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 2 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rRing1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rRing1?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -17.79618 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rRing2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rRing2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -20 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rRing3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rRing3?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -14.04459 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rPinky1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rPinky1?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 0.9117641 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rPinky1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rPinky1?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -17.64117 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rPinky2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rPinky2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -20 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "rPinky3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#rPinky3?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -5.477707 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lShldr:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lShldr?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 3 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lShldr:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lShldr?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -45 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lForeArm:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lForeArm?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 6 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lHand:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lHand?rotation/x",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 10 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lHand:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lHand?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 17 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lHand:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lHand?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -1.5 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lThumb2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lThumb2?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -23.5 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lThumb2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lThumb2?scale/x",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 0.028 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lThumb3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lThumb3?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -22.48726 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lIndex1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lIndex1?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 18.79618 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lIndex2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lIndex2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 20 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lIndex3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lIndex3?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 11.70064 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lMid1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lMid1?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -0.1176472 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lMid1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lMid1?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 20.73567 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lMid2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lMid2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 20 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lMid3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lMid3?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 13.00956 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lCarpal2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lCarpal2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -2 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lRing1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lRing1?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 17.79618 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lRing2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lRing2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 20 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lRing3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lRing3?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 14.04459 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lPinky1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lPinky1?rotation/y",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : -0.9117641 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lPinky1:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lPinky1?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 17.64117 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lPinky2:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lPinky2?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 20 },
+						{ "op" : "mult" }
+					]
+				},
+				{
+					"output" : "lPinky3:/data/DAZ%203D/Genesis/Base/Genesis.dsf#lPinky3?rotation/z",
+					"operations" : [
+						{ "op" : "push", "url" : "Genesis:#8GNXPose?value" },
+						{ "op" : "push", "val" : 5.477707 },
+						{ "op" : "mult" }
+					]
+				}
+			]
+		}
+	],
+	"scene" : {
+		"modifiers" : [
+			{
+				"id" : "8GNXPose-1",
+				"url" : "#8GNXPose"
+			}
+		]
+	}
+}

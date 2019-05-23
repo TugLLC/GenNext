@@ -1,0 +1,79 @@
+pelvis	pelvis
+lThigh	lThigh	lThighTwist
+lShin	lShin
+lFoot	lFoot	lMetatarsals	lHeel
+lToe	lToe
+lBigToe	lBigToe	lBigToe2
+lSmallToe1	lSmallToe1	lSmallToe1_2
+lSmallToe2	lSmallToe2	lSmallToe2_2
+lSmallToe3	lSmallToe3	lSmallToe3_2
+lSmallToe4	lSmallToe4	lSmallToe4_2
+rThigh	rThigh	rThighTwist
+rShin	rShin
+rFoot	rFoot	rMetatarsals	rHeel
+rToe	rToe
+rBigToe	rBigToe	rBigToe2
+rSmallToe1	rSmallToe1	rSmallToe1_2
+rSmallToe2	rSmallToe2	rSmallToe2_2
+rSmallToe3	rSmallToe3	rSmallToe3_2
+rSmallToe4	rSmallToe4	rSmallToe4_2
+abdomen	abdomenLower
+abdomen2	abdomen2
+chest	chest	chest_2
+neck	neck	neck_2
+head	head	lEar	rEar
+lEye	lEye	lBrowInner	lBrowMid	lBrowOuter	lEyelidInner	lEyelidUpperInner	lEyelidTop	lEyelidUpperOuter	lEyelidOuter	lEyelidLowerOuter	lEyelidLower	lEyelidLower_2	lSquintInner	lSquintOuter
+rEye	rEye	rBrowInner	rBrowMid	rBrowOuter	rEyelidInner	rEyelidUpperInner	rEyelidUpper	rEyelidUpperOuter	rEyelidOuter	rEyelidLowerOuter	rEyelidLower	rEyelidLowerInner	rSquintInner	rSquintOuter
+upperJaw	upperJaw	upperFaceRig	MidBrowUpper	MidNoseBridge	lCheekUpperInner	rCheekUpperInner	Nose	lNostril	rNostril	lLipBelowNose	rLipBelowNose	lLipUpperOuter	lLipUpperInner	lLipUpperMiddle	rLipUpperInner	rLipUpperOuter	lLipNasolabialCrease	rLipNasolabialCrease	lNoseBirdge	rNasolabialUpper	lNasolabialMiddle	rNasolabialMiddle
+lowerJaw	lowerJaw	lowerTeeth	lowerFaceRig	lNasolabialLower	rNasolabialLower	lNasolabialMouthCorner	rNasolabialMouthCorner	lLipCorver	lLipLowerOuter	lLipLowerInner	LipLowerMiddle	rLipLowerInner	rLipLowerOuter	rLipCorner	LipBelow	Chin	lCheekLowerInner	rCheekLowerInner	BelowJaw	lJawClench	rJawClench
+tongueBase	tongueBase
+tongue01	tongue01
+tongue02	tongue02
+tongue03	tongue03
+tongue04	REMOVE
+tongue05	REMOVE
+tongueTip	REMOVE
+rCollar	rCollar
+rShldr	rShldr	rShldrTwist
+rForeArm	rForeArm	rWrist
+rHand	rHand
+rThumb1	rThumb1
+rThumb2	rThumb2
+rThumb3	rThumb3
+rCarpal1	rCarpal1	rCarpal3
+rCarpal2	rCarpal2	rCarpal4
+rIndex1	rIndex1
+rIndex2	rIndex2
+rIndex3	rIndex3
+rMid1	rMid1
+rMid2	rMid2
+rMid3	rMid3
+rRing1	rRing1
+rRing2	rRing2
+rRing3	rRing3
+rPinky1	rPinky1
+rPinky2	rPinky2
+rPinky3	rPinky3
+lCollar	lCollar
+lShldr	lShldr	lShldrTwist
+lForeArm	lForeArm	lWrist
+lHand	lHand
+lThumb1	lThumb1
+lThumb2	lThumb2
+lThumb3	lThumb3
+lCarpal1	lCarpal1	lCarpal2-1
+lCarpal2	lCarpal2	lCarpal3
+lIndex1	lIndex1
+lIndex2	lIndex2
+lIndex3	lIndex3
+lMid1	lMid1
+lMid2	lMid2
+lMid3	lMid3
+lRing1	lRing1
+lRing2	lRing2
+lRing3	lRing3
+lPinky1	lPinky1
+lPinky2	lPinky2
+lPinky3	lPinky3
+rPectoral	rPectoral
+lPectoral	lPectoral
